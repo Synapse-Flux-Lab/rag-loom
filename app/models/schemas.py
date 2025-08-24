@@ -1,6 +1,8 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from enum import Enum
+from datetime import datetime
+from uuid import UUID
 
 class FileType(str, Enum):
     PDF = "pdf"
@@ -15,12 +17,34 @@ class ChunkResponse(BaseModel):
     total_chunks: int
     original_size: int
 
-class IngestionResponse(BaseModel):
-    message: str
-    file_id: str
-    chunks_created: int
-    processing_time: float
+class SearchQuery(BaseModel):
+    query: str
+    top_k: Optional[int] = 5
+    similarity_threshold: Optional[float] = 0.7
+    filters: Optional[Dict[str, Any]] = None
 
-class ErrorResponse(BaseModel):
-    error: str
-    details: Optional[str] = None
+class SearchResult(BaseModel):
+    id: UUID
+    content: str
+    metadata: Dict[str, Any]
+    similarity_score: float
+    document_id: UUID
+
+class GenerationRequest(BaseModel):
+    query: str
+    context: Optional[List[SearchResult]] = None
+    search_params: Optional[SearchQuery] = None
+    temperature: float = 0.7
+    max_tokens: int = 500
+
+class GenerationResponse(BaseModel):
+    answer: str
+    sources: List[SearchResult]
+    generation_time: float
+
+class HealthResponse(BaseModel):
+    status: str
+    vector_store: str
+    embedding_model: str
+    llm_provider: str
+    timestamp: datetime
