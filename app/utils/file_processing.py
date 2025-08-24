@@ -1,7 +1,7 @@
 import io
 import re
 from typing import Union, List
-import PyPDF2
+import pypdf
 from loguru import logger
 
 class FileProcessor:
@@ -10,7 +10,7 @@ class FileProcessor:
         """Extract text from PDF file content"""
         try:
             pdf_file = io.BytesIO(file_content)
-            pdf_reader = PyPDF2.PdfReader(pdf_file)
+            pdf_reader = pypdf.PdfReader(pdf_file)
             text = ""
             
             for page in pdf_reader.pages:
