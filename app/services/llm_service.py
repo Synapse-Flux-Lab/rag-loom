@@ -1,6 +1,7 @@
 from openai import OpenAI
 import cohere
 from transformers import pipeline
+import ollama  # Add Ollama import
 from typing import List, Dict, Any
 from tenacity import retry, stop_after_attempt, wait_exponential
 
@@ -28,6 +29,9 @@ class LLMService:
                     device=-1  # Use CPU by default
                 )
                 self.model_name = settings.HUGGINGFACE_MODEL
+            elif self.provider == "ollama":  # Add Ollama support
+                self.client = ollama.Client(host=settings.OLLAMA_BASE_URL)
+                self.model_name = settings.OLLAMA_MODEL
             logger.info(f"Initialized LLM service with provider: {self.provider}")
         except Exception as e:
             logger.error(f"Failed to initialize LLM service: {e}")
@@ -73,15 +77,25 @@ class LLMService:
                     do_sample=True
                 )
                 return response[0]['generated_text'].strip()
+            
+            elif self.provider == "ollama":  # Add Ollama generation
+                prompt = self._create_ollama_prompt(query, context_text)
+                response = self.client.generate(
+                    model=self.model_name,
+                    prompt=prompt,
+                    options={
+                        "temperature": temperature,
+                        "num_predict": max_tokens
+                    }
+                )
+                return response['response'].strip()
         
         except Exception as e:
             logger.error(f"Error generating response: {e}")
             raise
     
     def _create_openai_prompt(self, query: str, context: str) -> str:
-        return f"""Based on the following context, answer the query. If the context doesn't contain the answer, say so.
-
-Context:
+        return f"""Context:
 {context}
 
 Query: {query}
@@ -103,5 +117,17 @@ context: {context}
 question: {query}
 
 answer:"""
+
+    def _create_ollama_prompt(self, query: str, context: str) -> str:
+        return f"""You are a helpful AI assistant for RAG (Retrieval-Augmented Generation) tasks.
+
+Context information:
+{context}
+
+Question: {query}
+
+Please answer the question based on the context above. If the context doesn't contain enough information to answer the question, say so. Be concise and accurate.
+
+Answer:"""
 
 llm_service = LLMService()
