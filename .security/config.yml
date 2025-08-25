@@ -1,0 +1,306 @@
+# Security Configuration for RAG Platform Kit
+# This file configures security tools and policies
+
+version: 1.0.0
+project: rag-platform-kit
+
+# Security Tools Configuration
+tools:
+  # Static Application Security Testing (SAST)
+  bandit:
+    enabled: true
+    config: .bandit
+    exclude: ["tests/", "venv/", "env/"]
+    severity: ["HIGH", "MEDIUM"]
+    
+  # Dependency Vulnerability Scanning
+  safety:
+    enabled: true
+    output: json
+    severity: ["HIGH", "MEDIUM"]
+    
+  # Container Security Scanning
+  trivy:
+    enabled: true
+    scan_type: ["fs", "image"]
+    severity: ["CRITICAL", "HIGH"]
+    ignore: []
+    
+  # Secret Detection
+  detect-secrets:
+    enabled: true
+    baseline: .secrets.baseline
+    exclude: ["tests/", "venv/", "env/", "*.lock"]
+
+# Security Policies
+policies:
+  # Dependency Policies
+  dependencies:
+    allow_unsafe: false
+    max_age_days: 90
+    require_checksum: true
+    
+  # Container Policies
+  containers:
+    require_signing: false  # Enable when cosign is configured
+    require_scanning: true
+    max_severity: "HIGH"
+    
+  # Code Quality Policies
+  code_quality:
+    require_tests: true
+    min_coverage: 80
+    require_linting: true
+    require_type_checking: true
+
+# Security Rules
+rules:
+  # Prohibited Patterns
+  forbidden_patterns:
+    - pattern: "password\\s*=\\s*['\"][^'\"]+['\"]"
+      message: "Hardcoded passwords are not allowed"
+      severity: "HIGH"
+      
+    - pattern: "api_key\\s*=\\s*['\"][^'\"]+['\"]"
+      message: "Hardcoded API keys are not allowed"
+      severity: "HIGH"
+      
+    - pattern: "secret\\s*=\\s*['\"][^'\"]+['\"]"
+      message: "Hardcoded secrets are not allowed"
+      severity: "HIGH"
+      
+    - pattern: "curl.*\\|.*sh"
+      message: "Piping curl to shell is dangerous"
+      severity: "HIGH"
+      
+    - pattern: "eval\\("
+      message: "eval() function is dangerous"
+      severity: "HIGH"
+      
+    - pattern: "exec\\("
+      message: "exec() function is dangerous"
+      severity: "HIGH"
+      
+    - pattern: "os\\.system"
+      message: "os.system() is dangerous, use subprocess instead"
+      severity: "MEDIUM"
+      
+    - pattern: "shell=True"
+      message: "shell=True can be dangerous"
+      severity: "MEDIUM"
+
+  # Required Security Headers
+  required_headers:
+    - "X-Content-Type-Options: nosniff"
+    - "X-Frame-Options: DENY"
+    - "X-XSS-Protection: 1; mode=block"
+    - "Referrer-Policy: strict-origin-when-cross-origin"
+    - "Content-Security-Policy: default-src 'self'"
+
+# CI/CD Security
+ci_cd:
+  # Required Security Checks
+  required_checks:
+    - "code-quality"
+    - "security-scan"
+    - "dependency-check"
+    
+  # Action Pinning
+  action_pinning:
+    required: true
+    allow_master: false
+    allow_latest: false
+    
+  # Secret Management
+  secrets:
+    rotation_required: true
+    max_age_days: 90
+    require_encryption: true
+    
+  # Deployment Security
+  deployment:
+    require_approval: true
+    require_health_check: true
+    require_rollback_plan: true
+
+# Monitoring and Alerting
+monitoring:
+  # Security Metrics
+  metrics:
+    - "vulnerability_count"
+    - "security_scan_coverage"
+    - "dependency_update_frequency"
+    - "security_incident_response_time"
+    
+  # Alerting
+  alerts:
+    critical_severity: true
+    high_severity: true
+    medium_severity: false
+    
+  # Reporting
+  reports:
+    daily: true
+    weekly: true
+    monthly: true
+
+# Compliance
+compliance:
+  standards:
+    - "OWASP Top 10"
+    - "CWE/SANS Top 25"
+    - "NIST Cybersecurity Framework"
+    
+  requirements:
+    - "No hardcoded secrets"
+    - "All dependencies scanned"
+    - "All containers scanned"
+    - "Security tests passing"
+    - "Code quality checks passing"
+
+# Incident Response
+incident_response:
+  # Security Incident Levels
+  levels:
+    critical:
+      response_time: "1 hour"
+      notification: ["security-team", "devops-team"]
+      
+    high:
+      response_time: "4 hours"
+      notification: ["security-team"]
+      
+    medium:
+      response_time: "24 hours"
+      notification: ["security-team"]
+      
+    low:
+      response_time: "72 hours"
+      notification: ["security-team"]
+      
+  # Response Procedures
+  procedures:
+    - "Immediate containment"
+    - "Root cause analysis"
+    - "Remediation planning"
+    - "Post-incident review"
+    - "Process improvement"
+
+# File Permissions
+file_permissions:
+  # Executable Files
+  executable:
+    pattern: "*.sh"
+    permissions: "755"
+    
+  # Source Code
+  source_code:
+    pattern: "*.py"
+    permissions: "644"
+    
+  # Configuration Files
+  config:
+    pattern: "*.yml,*.yaml,*.json"
+    permissions: "644"
+    
+  # Documentation
+  docs:
+    pattern: "*.md,*.txt"
+    permissions: "644"
+
+# Network Security
+network_security:
+  # Allowed Protocols
+  protocols:
+    - "HTTPS"
+    - "SSH"
+    - "SFTP"
+    
+  # Blocked Protocols
+  blocked:
+    - "HTTP"
+    - "FTP"
+    - "Telnet"
+    
+  # Required TLS Version
+  tls:
+    min_version: "1.2"
+    preferred_ciphers: ["TLS_AES_256_GCM_SHA384", "TLS_CHACHA20_POLY1305_SHA256"]
+
+# Data Protection
+data_protection:
+  # Sensitive Data Types
+  sensitive_data:
+    - "API keys"
+    - "Passwords"
+    - "Access tokens"
+    - "Private keys"
+    - "Database credentials"
+    
+  # Encryption Requirements
+  encryption:
+    at_rest: true
+    in_transit: true
+    algorithm: "AES-256-GCM"
+    
+  # Data Retention
+  retention:
+    logs: "90 days"
+    backups: "1 year"
+    temp_files: "24 hours"
+
+# Access Control
+access_control:
+  # Principle of Least Privilege
+  least_privilege: true
+  
+  # Required Authentication
+  authentication:
+    - "Multi-factor authentication"
+    - "Strong password policy"
+    - "Session timeout"
+    
+  # Authorization
+  authorization:
+    - "Role-based access control"
+    - "Resource-level permissions"
+    - "Audit logging"
+
+# Audit and Logging
+audit_logging:
+  # Required Logs
+  required:
+    - "Authentication events"
+    - "Authorization failures"
+    - "Data access"
+    - "Configuration changes"
+    - "Security events"
+    
+  # Log Retention
+  retention: "1 year"
+  
+  # Log Protection
+  protection:
+    - "Encryption at rest"
+    - "Access control"
+    - "Integrity checking"
+    - "Tamper detection"
+
+# Update and Maintenance
+maintenance:
+  # Security Updates
+  security_updates:
+    required: true
+    max_age_days: 30
+    
+  # Dependency Updates
+  dependency_updates:
+    automated: true
+    schedule: "weekly"
+    require_approval: true
+    
+  # Tool Updates
+  tool_updates:
+    automated: false
+    schedule: "monthly"
+    require_testing: true
