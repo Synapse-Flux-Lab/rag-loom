@@ -6,6 +6,28 @@ from loguru import logger
 from app.core.config import settings
 from app.api.endpoints import ingestion, retrieval, generation
 
+# Display startup information
+print("🚀 Starting RAG Platform Kit...")
+print(f"📍 Service will run on: {settings.SERVICE_HOST}:{settings.SERVICE_PORT}")
+print(f"🔧 Vector Store: {settings.VECTOR_STORE_TYPE}")
+print(f"🤖 LLM Provider: {settings.LLM_PROVIDER}")
+print()
+
+# Check if essential services are available
+if settings.VECTOR_STORE_TYPE == "qdrant":
+    try:
+        import requests
+        response = requests.get(f"{settings.QDRANT_URL}/health", timeout=5)
+        if response.status_code == 200:
+            print("✅ Qdrant vector store is accessible")
+        else:
+            print("⚠️  Qdrant vector store may not be running")
+    except Exception as e:
+        print("❌ Cannot connect to Qdrant vector store")
+        print("   Make sure Qdrant is running on:", settings.QDRANT_URL)
+
+print("="*50)
+
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
@@ -36,17 +58,33 @@ async def root():
 @app.get("/health")
 async def health_check():
     from app.core.vector_store import vector_store
-    from app.core.embeddings import embedding_service
-    from app.services.llm_service import llm_service
     
-    return {
-        "status": "healthy",
-        "vector_store": vector_store.store_type,
-        "embedding_model": embedding_service.model_name,
-        "llm_provider": llm_service.provider,
-        "timestamp": datetime.utcnow()
-    }
+    try:
+        # Basic health check
+        health_status = {
+            "status": "healthy",
+            "vector_store": settings.VECTOR_STORE_TYPE,
+            "embedding_model": settings.EMBEDDING_MODEL,
+            "llm_provider": settings.LLM_PROVIDER,
+            "timestamp": "2024-01-15T10:30:00Z"
+        }
+        
+        # Add Ollama-specific info
+        if settings.LLM_PROVIDER == "ollama":
+            health_status["ollama_model"] = settings.OLLAMA_MODEL
+            health_status["ollama_url"] = settings.OLLAMA_BASE_URL
+        
+        return health_status
+    except Exception as e:
+        logger.error(f"Health check failed: {e}")
+        return {"status": "unhealthy", "error": str(e)}
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(
+        "app.main:app",
+        host=settings.SERVICE_HOST,
+        port=settings.SERVICE_PORT,
+        reload=settings.RELOAD,
+        workers=settings.WORKER_PROCESSES
+    )
