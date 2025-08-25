@@ -68,23 +68,58 @@ check_prerequisites() {
 }
 
 setup_virtual_environment() {
-    print_header "Setting Up Virtual Environment"
+    echo " Setting up virtual environment..."
     
-    if [ -d "$VENV_NAME" ]; then
-        print_info "Virtual environment already exists"
-    else
-        print_info "Creating virtual environment..."
-        python3 -m venv $VENV_NAME
-        print_success "Virtual environment created"
+    # Check if Python 3.12 is available
+    if ! command -v python3.12 &> /dev/null; then
+        echo "❌ Python 3.12 not found. Installing..."
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # macOS
+            if ! command -v brew &> /dev/null; then
+                echo "Installing Homebrew..."
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            fi
+            brew install python@3.12
+        else
+            echo "Please install Python 3.12 manually for your OS"
+            return 1
+        fi
     fi
     
-    print_info "Activating virtual environment..."
-    source $VENV_NAME/bin/activate
+    # Check if venv already exists
+    if [ -d "venvpy312" ]; then
+        echo "⚠️  Virtual environment 'venvpy312' already exists!"
+        echo "   If you want to recreate it, manually remove it first:"
+        echo "   rm -rf venvpy312"
+        echo "   Then run this setup command again."
+        echo ""
+        echo "   Or continue using the existing venv by running:"
+        echo "   ./quick_start.sh start"
+        return 0
+    fi
+    
+    # Create new venv with Python 3.12 explicitly
+    echo "📦 Creating virtual environment with Python 3.12..."
+    python3.12 -m venv venvpy312
+    
+    # Activate the venv
+    source venvpy312/bin/activate
+    
+    # Verify Python version
+    PYTHON_VERSION=$(python --version 2>&1)
+    echo "✅ Virtual environment created with: $PYTHON_VERSION"
     
     # Upgrade pip
-    print_info "Upgrading pip..."
-    pip install --upgrade pip
-    print_success "Virtual environment ready"
+    pip install --upgrade pip setuptools wheel
+    
+    # Install dependencies
+    echo "📦 Installing dependencies..."
+    if pip install -r requirements.txt; then
+        echo "✅ Dependencies installed successfully!"
+    else
+        echo "❌ Failed to install dependencies. Check the error above."
+        return 1
+    fi
 }
 
 install_dependencies() {
@@ -113,50 +148,85 @@ check_service_status() {
 }
 
 start_service() {
-    print_header "Starting RAG Service"
+    echo "🚀 Starting RAG service..."
     
-    if check_service_status; then
-        print_info "Service is already running"
+    # Activate virtual environment
+    if ! activate_virtual_environment; then
+        return 1
+    fi
+    
+    # Check if service is already running
+    if is_service_running; then
+        echo "⚠️  Service is already running on port $SERVICE_PORT"
         return 0
     fi
     
-    print_info "Starting service in background..."
-    
-    # Start service in background
+    # Start the service
+    echo "📡 Starting service on port $SERVICE_PORT..."
     nohup uvicorn app.main:app --host 0.0.0.0 --port $SERVICE_PORT --reload > service.log 2>&1 &
-    SERVICE_PID=$!
     
-    # Wait for service to start
-    print_info "Waiting for service to start..."
-    for i in {1..30}; do
-        if check_service_status; then
-            print_success "Service started successfully (PID: $SERVICE_PID)"
-            echo $SERVICE_PID > service.pid
-            return 0
-        fi
-        sleep 1
-    done
+    # Save the PID
+    echo $! > service.pid
+    echo "📋 Service started with PID: $(cat service.pid)"
     
-    print_error "Service failed to start within 30 seconds"
-    return 1
+    # Wait a moment for service to start
+    sleep 2
+    
+    if is_service_running; then
+        echo "✅ Service started successfully on port $SERVICE_PORT"
+        echo " Service logs: tail -f service.log"
+    else
+        echo "❌ Failed to start service. Check logs: cat service.log"
+        rm -f service.pid
+        return 1
+    fi
 }
 
 stop_service() {
-    print_header "Stopping RAG Service"
+    echo "========================================"
+    echo "  Stopping RAG Service"
+    echo "========================================"
     
-    if [ -f "service.pid" ]; then
-        SERVICE_PID=$(cat service.pid)
-        if kill -0 $SERVICE_PID 2>/dev/null; then
-            print_info "Stopping service (PID: $SERVICE_PID)..."
-            kill $SERVICE_PID
+    # Check if service is running by port
+    if is_service_running; then
+        echo " Service is running on port $SERVICE_PORT. Stopping..."
+        
+        # Try to stop using PID file first
+        if [ -f "service.pid" ]; then
+            PID=$(cat service.pid)
+            if kill -0 $PID 2>/dev/null; then
+                echo "📋 Stopping service with PID: $PID"
+                kill $PID
+                sleep 2
+                if kill -0 $PID 2>/dev/null; then
+                    echo "⚠️  Service didn't stop gracefully, force killing..."
+                    kill -9 $PID
+                fi
+            fi
             rm -f service.pid
-            print_success "Service stopped"
         else
-            print_warning "Service PID not found, cleaning up..."
-            rm -f service.pid
+            echo "⚠️  No PID file found, stopping by port..."
+        fi
+        
+        # Force stop any process using the port
+        PORT_PIDS=$(lsof -ti:$SERVICE_PORT 2>/dev/null)
+        if [ ! -z "$PORT_PIDS" ]; then
+            echo "🔍 Found processes using port $SERVICE_PORT: $PORT_PIDS"
+            echo "🛑 Stopping all processes on port $SERVICE_PORT..."
+            echo "$PORT_PIDS" | xargs kill -9 2>/dev/null
+            sleep 1
+        fi
+        
+        # Verify service is stopped
+        if is_service_running; then
+            echo "❌ Failed to stop service. Manual intervention may be required."
+            echo "   Try: sudo lsof -ti:$SERVICE_PORT | xargs sudo kill -9"
+            return 1
+        else
+            echo "✅ Service stopped successfully"
         fi
     else
-        print_warning "No service PID file found"
+        echo "ℹ️  No service running on port $SERVICE_PORT"
     fi
 }
 
@@ -238,12 +308,57 @@ cleanup() {
     print_success "Cleanup completed"
 }
 
+activate_virtual_environment() {
+    if [ -d "venvpy312" ]; then
+        echo " Activating virtual environment..."
+        source venvpy312/bin/activate
+        
+        # Verify Python version
+        PYTHON_VERSION=$(python --version 2>&1)
+        if [[ $PYTHON_VERSION == *"3.12"* ]]; then
+            echo "✅ Virtual environment activated with Python 3.12"
+        else
+            echo "❌ Warning: Virtual environment is not using Python 3.12"
+            echo "Current version: $PYTHON_VERSION"
+            echo "Consider recreating the venv: rm -rf venvpy312 && ./quick_start.sh setup"
+        fi
+    else
+        echo "❌ Virtual environment not found. Run setup first:"
+        echo "   ./quick_start.sh setup"
+        return 1
+    fi
+}
+
+cleanup_orphaned_processes() {
+    echo " Cleaning up orphaned processes..."
+    
+    # Find any Python processes that might be our service
+    PYTHON_PIDS=$(ps aux | grep "uvicorn app.main:app" | grep -v grep | awk '{print $2}')
+    
+    if [ ! -z "$PYTHON_PIDS" ]; then
+        echo "🔍 Found orphaned uvicorn processes: $PYTHON_PIDS"
+        echo "🛑 Stopping orphaned processes..."
+        echo "$PYTHON_PIDS" | xargs kill -9 2>/dev/null
+        echo "✅ Cleanup completed"
+    else
+        echo "ℹ️  No orphaned processes found"
+    fi
+    
+    # Remove stale PID file if it exists
+    if [ -f "service.pid" ]; then
+        PID=$(cat service.pid)
+        if ! kill -0 $PID 2>/dev/null; then
+            echo "🗑️  Removing stale PID file"
+            rm -f service.pid
+        fi
+    fi
+}
+
 # Main script logic
 case "${1:-help}" in
     setup)
         check_prerequisites
         setup_virtual_environment
-        install_dependencies
         print_success "Setup completed successfully!"
         print_info "Next steps:"
         print_info "  1. Configure your .env file with API keys"
@@ -272,6 +387,9 @@ case "${1:-help}" in
         ;;
     clean)
         cleanup
+        ;;
+    cleanup)
+        cleanup_orphaned_processes
         ;;
     help|--help|-h)
         show_usage
