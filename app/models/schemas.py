@@ -48,3 +48,34 @@ class HealthResponse(BaseModel):
     embedding_model: str
     llm_provider: str
     timestamp: datetime
+
+class IngestionRequest(BaseModel):
+    file: Any  # This will be handled by FastAPI's File upload
+    chunk_size: Optional[int] = 1000
+    chunk_overlap: Optional[int] = 200
+
+class IngestionResponse(BaseModel):
+    message: str
+    file_id: str
+    file_name: str
+    file_type: str
+    chunks_created: int
+    processing_time: float
+    metadata: Optional[Dict[str, Any]] = None
+
+class ErrorResponse(BaseModel):
+    detail: str
+    error_code: Optional[str] = None
+    timestamp: datetime = datetime.now()
+
+class BatchIngestionRequest(BaseModel):
+    files: List[Any]  # Multiple files for batch upload
+    chunk_size: Optional[int] = 1000
+    chunk_overlap: Optional[int] = 200
+
+class BatchIngestionResponse(BaseModel):
+    results: List[IngestionResponse]
+    total_files: int
+    successful_uploads: int
+    failed_uploads: int
+    total_processing_time: float
