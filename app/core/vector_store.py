@@ -24,7 +24,7 @@ class VectorStoreService:
         try:
             if self.store_type == "chroma":
                 self.client = chromadb.PersistentClient(
-                    path=settings.CHROMA_PATH,
+                    path=settings.CHROMA_PERSIST_DIRECTORY,
                     settings=ChromaSettings(anonymized_telemetry=False)
                 )
                 self.collection = self.client.get_or_create_collection(
@@ -34,7 +34,7 @@ class VectorStoreService:
             elif self.store_type == "qdrant":
                 self.client = QdrantClient(
                     url=settings.QDRANT_URL,
-                    api_key=settings.QDRANT_API_KEY
+                    api_key=settings.QDRANT_API_KEY if settings.QDRANT_API_KEY else None
                 )
                 # Ensure collection exists
                 try:
@@ -76,88 +76,86 @@ class VectorStoreService:
         """Store document chunks in the vector database"""
         try:
             if self.store_type == "chroma":
+                # Store in ChromaDB
                 ids = [str(chunk.id) for chunk in chunks]
-                documents = [chunk.content for chunk in chunks]
-                metadatas = [{"document_id": str(chunk.document_id), **chunk.metadata} 
-                            for chunk in chunks]
-                embeddings = [chunk.embedding for chunk in chunks if chunk.embedding]
+                contents = [chunk.content for chunk in chunks]
+                metadatas = [chunk.metadata for chunk in chunks]
+                embeddings = [chunk.embedding for chunk in chunks]
                 
-                if embeddings:
-                    self.collection.add(
-                        ids=ids,
-                        documents=documents,
-                        metadatas=metadatas,
-                        embeddings=embeddings
-                    )
-                else:
-                    self.collection.add(
-                        ids=ids,
-                        documents=documents,
-                        metadatas=metadatas
-                    )
-            
+                self.collection.add(
+                    ids=ids,
+                    documents=contents,
+                    metadatas=metadatas,
+                    embeddings=embeddings
+                )
+                
             elif self.store_type == "qdrant":
+                # Store in Qdrant
                 points = []
                 for chunk in chunks:
                     point = PointStruct(
                         id=str(chunk.id),
-                        vector=chunk.embedding or [],
+                        vector=chunk.embedding,
                         payload={
                             "content": chunk.content,
-                            "document_id": str(chunk.document_id),
                             "metadata": chunk.metadata
                         }
                     )
                     points.append(point)
+                
                 self.client.upsert(
                     collection_name="document_chunks",
                     points=points
                 )
-            
+                
             elif self.store_type == "redis":
+                # Store in Redis
                 for chunk in chunks:
                     key = f"chunk:{chunk.id}"
                     data = {
                         "content": chunk.content,
-                        "document_id": str(chunk.document_id),
                         "metadata": json.dumps(chunk.metadata),
-                        "embedding": np.array(chunk.embedding).astype(np.float32).tobytes() if chunk.embedding else b""
+                        "embedding": chunk.embedding
                     }
                     self.client.json().set(key, "$", data)
             
-            logger.info(f"Stored {len(chunks)} chunks in vector store")
-        
+            logger.info(f"Stored {len(chunks)} chunks in {self.store_type}")
+            
         except Exception as e:
             logger.error(f"Error storing chunks: {e}")
             raise
     
     def search_similar(self, query_embedding: List[float], top_k: int = 5, 
                       filters: Optional[Dict] = None) -> List[Dict]:
-        """Search for similar chunks in the vector database"""
+        """Search for similar chunks based on embedding"""
         try:
             if self.store_type == "chroma":
+                # Search in ChromaDB
                 results = self.collection.query(
                     query_embeddings=[query_embedding],
                     n_results=top_k,
                     where=filters
                 )
+                
                 return [
                     {
                         "id": results["ids"][0][i],
                         "content": results["documents"][0][i],
                         "metadata": results["metadatas"][0][i],
-                        "similarity_score": results["distances"][0][i] if "distances" in results else 0
+                        "similarity_score": 1 - results["distances"][0][i]  # Convert distance to similarity
                     }
                     for i in range(len(results["ids"][0]))
                 ]
             
             elif self.store_type == "qdrant":
+                # Search in Qdrant
                 results = self.client.search(
                     collection_name="document_chunks",
                     query_vector=query_embedding,
                     limit=top_k,
                     query_filter=filters
                 )
+                
                 return [
                     {
                         "id": result.id,
