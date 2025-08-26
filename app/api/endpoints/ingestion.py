@@ -63,17 +63,20 @@ async def ingest_document(
         chunks = chunker.sliding_window_chunk(cleaned_text)
         
         processing_time = time.time() - start_time
-        
+
         # In a real implementation, you would store chunks in a vector database here
-        # For now, we'll just return the chunking results
-        
+        # For now, we'll just return the chunking results       
+ 
         logger.info(f"Processed file {file.filename}: {len(chunks)} chunks created")
         
         return IngestionResponse(
             message="Document processed successfully",
-            file_id=file.filename,  # In production, generate a unique ID
+            file_id=file.filename,  # Keep this
+            file_name=file.filename,  # ADD THIS REQUIRED FIELD
+            file_type=file_type,      # ADD THIS REQUIRED FIELD
             chunks_created=len(chunks),
-            processing_time=round(processing_time, 2)
+            processing_time=round(processing_time, 2),
+            metadata={}  # Optional: add metadata if needed
         )
         
     except HTTPException:
@@ -91,6 +94,8 @@ async def ingest_document(
             detail="Internal server error during file processing"
         )
 
+
+
 @router.post("/ingest/batch", response_model=List[IngestionResponse])
 async def ingest_batch_documents(
     files: List[UploadFile] = File(...),
@@ -101,13 +106,54 @@ async def ingest_batch_documents(
     
     for file in files:
         try:
-            result = await ingest_document(file, chunk_params)
-            results.append(result)
+            # We need to manually call the logic since we can't call ingest_document directly
+            # due to the required fields issue
+            start_time = time.time()
+            
+            file_content = await file.read()
+            file_type = file_processor.get_file_type(file.filename)
+            
+            if file_type == 'pdf':
+                text = file_processor.extract_text_from_pdf(file_content)
+            elif file_type == 'txt':
+                text = file_processor.extract_text_from_txt(file_content)
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Unsupported file type"
+                )
+            
+            cleaned_text = file_processor.clean_text(text)
+            chunker_params = chunk_params.dict() if chunk_params else {}
+            chunker = TextChunker(**chunker_params)
+            chunks = chunker.sliding_window_chunk(cleaned_text)
+            processing_time = time.time() - start_time
+            
+            results.append(IngestionResponse(
+                message="Document processed successfully",
+                file_id=file.filename,
+                file_name=file.filename,
+                file_type=file_type,
+                chunks_created=len(chunks),
+                processing_time=round(processing_time, 2)
+            ))
+            
         except HTTPException as e:
             # Continue processing other files even if one fails
             results.append(IngestionResponse(
                 message=f"Failed to process {file.filename}",
                 file_id=file.filename,
+                file_name=file.filename,
+                file_type="unknown",
+                chunks_created=0,
+                processing_time=0.0
+            ))
+        except Exception as e:
+            results.append(IngestionResponse(
+                message=f"Error processing {file.filename}: {str(e)}",
+                file_id=file.filename,
+                file_name=file.filename,
+                file_type="unknown",
                 chunks_created=0,
                 processing_time=0.0
             ))
