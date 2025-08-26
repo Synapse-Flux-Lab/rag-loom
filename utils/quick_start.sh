@@ -17,6 +17,19 @@ SERVICE_PORT=8000
 SERVICE_URL="http://localhost:$SERVICE_PORT"
 VENV_NAME="renv"
 
+# Function to check if service is running
+is_service_running() {
+    if curl -s "$SERVICE_URL/health" > /dev/null 2>&1; then
+        return 0
+    else
+        # Also check if process is running by port
+        if lsof -ti:$SERVICE_PORT > /dev/null 2>&1; then
+            return 0
+        fi
+        return 1
+    fi
+}
+
 print_header() {
     echo -e "\n${BLUE}========================================${NC}"
     echo -e "${BLUE}  $1${NC}"
@@ -138,7 +151,7 @@ install_dependencies() {
 check_service_status() {
     print_header "Checking Service Status"
     
-    if curl -s "$SERVICE_URL/health" > /dev/null 2>&1; then
+    if is_service_running; then
         print_success "Service is running on port $SERVICE_PORT"
         return 0
     else
@@ -170,7 +183,7 @@ start_service() {
     echo "📋 Service started with PID: $(cat service.pid)"
     
     # Wait a moment for service to start
-    sleep 2
+    sleep 3
     
     if is_service_running; then
         echo "✅ Service started successfully on port $SERVICE_PORT"
@@ -209,11 +222,11 @@ stop_service() {
         fi
         
         # Force stop any process using the port
-        PORT_PIDS=$(lsof -ti:$SERVICE_PORT 2>/dev/null)
+        PORT_PIDS=$(lsof -ti:$SERVICE_PORT 2>/dev/null || true)
         if [ ! -z "$PORT_PIDS" ]; then
             echo "🔍 Found processes using port $SERVICE_PORT: $PORT_PIDS"
             echo "🛑 Stopping all processes on port $SERVICE_PORT..."
-            echo "$PORT_PIDS" | xargs kill -9 2>/dev/null
+            echo "$PORT_PIDS" | xargs kill -9 2>/dev/null || true
             sleep 1
         fi
         
@@ -317,10 +330,12 @@ activate_virtual_environment() {
         PYTHON_VERSION=$(python --version 2>&1)
         if [[ $PYTHON_VERSION == *"3.12"* ]]; then
             echo "✅ Virtual environment activated with Python 3.12"
+            return 0
         else
             echo "❌ Warning: Virtual environment is not using Python 3.12"
             echo "Current version: $PYTHON_VERSION"
             echo "Consider recreating the venv: rm -rf venvpy312 && ./quick_start.sh setup"
+            return 1
         fi
     else
         echo "❌ Virtual environment not found. Run setup first:"
@@ -333,12 +348,12 @@ cleanup_orphaned_processes() {
     echo " Cleaning up orphaned processes..."
     
     # Find any Python processes that might be our service
-    PYTHON_PIDS=$(ps aux | grep "uvicorn app.main:app" | grep -v grep | awk '{print $2}')
+    PYTHON_PIDS=$(ps aux | grep "uvicorn app.main:app" | grep -v grep | awk '{print $2}' 2>/dev/null || true)
     
     if [ ! -z "$PYTHON_PIDS" ]; then
         echo "🔍 Found orphaned uvicorn processes: $PYTHON_PIDS"
         echo "🛑 Stopping orphaned processes..."
-        echo "$PYTHON_PIDS" | xargs kill -9 2>/dev/null
+        echo "$PYTHON_PIDS" | xargs kill -9 2>/dev/null || true
         echo "✅ Cleanup completed"
     else
         echo "ℹ️  No orphaned processes found"
