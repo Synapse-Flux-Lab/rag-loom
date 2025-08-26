@@ -114,7 +114,7 @@ setup_virtual_environment() {
     
     # Install dependencies
     echo "📦 Installing dependencies..."
-    if pip install -r requirements.txt; then
+    if pip install --upgrade -r requirements.txt; then
         echo "✅ Dependencies installed successfully!"
     else
         echo "❌ Failed to install dependencies. Check the error above."
@@ -131,7 +131,7 @@ install_dependencies() {
     fi
     
     print_info "Installing Python dependencies..."
-    pip install -r requirements.txt
+    pip install --upgrade -r requirements.txt
     print_success "Dependencies installed"
 }
 
