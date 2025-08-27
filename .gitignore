@@ -129,6 +129,7 @@ env.bak/
 venv.bak/
 renv/
 venvpy312/
+venv_test/
 
 # Spyder project settings
 .spyderproject
