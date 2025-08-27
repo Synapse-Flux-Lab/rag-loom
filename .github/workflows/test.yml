@@ -24,6 +24,9 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
+      - name: Ensure pip cache exists
+        run: mkdir -p ~/.cache/pip
+
       - name: Generate cache key
         id: set-cache-key
         run: |
@@ -37,6 +40,12 @@ jobs:
           key: ${{ steps.set-cache-key.outputs.cache-key }}
           restore-keys: |
             ${{ runner.os }}-pip-
+
+      - name: Install application and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install -r tests/requirements-test.txt
 
   unit-tests:
     name: Unit Tests
@@ -52,7 +61,10 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Restore cached pip dependencies
+      - name: Ensure pip cache exists
+        run: mkdir -p ~/.cache/pip
+
+      - name: Restore pip cache
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
@@ -63,14 +75,11 @@ jobs:
       - name: Install app and test dependencies
         run: |
           python -m pip install --upgrade pip
-          export PYTHONPATH=$(pwd)
-          pip install -e . --no-cache-dir
-          pip install -r tests/requirements-test.txt 
+          pip install -e .
+          pip install -r tests/requirements-test.txt
 
       - name: Verify app package
-        run: |
-          export PYTHONPATH=$(pwd)
-          python -c "import app; print('App installed at', app.__file__)"
+        run: python -c "import app; print('App installed at', app.__file__)"
 
       - name: Run unit tests
         run: |
@@ -96,7 +105,10 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Restore cached pip dependencies
+      - name: Ensure pip cache exists
+        run: mkdir -p ~/.cache/pip
+
+      - name: Restore pip cache
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
@@ -107,8 +119,7 @@ jobs:
       - name: Install app and test dependencies
         run: |
           python -m pip install --upgrade pip
-          export PYTHONPATH=$(pwd)
-          pip install -e . --no-cache-dir
+          pip install -e .
           pip install -r tests/requirements-test.txt
 
       - name: Run integration tests
