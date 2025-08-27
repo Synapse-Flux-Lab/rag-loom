@@ -39,29 +39,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install app and test dependencies
+      - name: Install application and test dependencies
         run: |
           python -m pip install --upgrade pip
           export PYTHONPATH=$(pwd)
-
-          if [ -f "setup.py" ]; then
-            pip install -e . --no-cache-dir
-          elif [ -f "pyproject.toml" ]; then
-            pip install -e . --no-cache-dir
-          else
-            echo "No setup.py or pyproject.toml found. Creating minimal setup..."
-            {
-              echo "from setuptools import setup, find_packages"
-              echo ""
-              echo "setup("
-              echo "    name='app',"
-              echo "    version='0.1.0',"
-              echo "    packages=find_packages(where='.', include=['app', 'app.*']),"
-              echo "    package_dir={'': '.'},"
-              echo ")"
-            } > setup.py
-            pip install -e . --no-cache-dir
-          fi
+          pip install -e . --no-cache-dir
 
           if [ -f "tests/requirements-test.txt" ]; then
             pip install -r tests/requirements-test.txt
