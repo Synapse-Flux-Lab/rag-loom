@@ -3,10 +3,10 @@ name: Python Tests
 on:
   push:
     branches:
-      - '**'  
+      - '**'   # run on push to any branch
   pull_request:
     branches:
-      - main  
+      - main   # run PRs targeting main
 
 jobs:
   install-dependencies:
@@ -27,8 +27,7 @@ jobs:
     - name: Generate cache key
       id: set-cache-key
       run: |
-
-        KEY="$RUNNER_OS-pip-$(sha256sum tests/requirements-test.txt setup.py pyproject.toml 2>/dev/null | sha256sum | cut -d' ' -f1)"
+        KEY="$RUNNER_OS-pip-$(cat tests/requirements-test.txt setup.py pyproject.toml 2>/dev/null | sha256sum | cut -d' ' -f1)"
         echo "cache-key=$KEY" >> $GITHUB_OUTPUT
 
     - name: Cache dependencies
@@ -50,16 +49,15 @@ jobs:
           pip install -e .
         else
           echo "No setup.py or pyproject.toml found. Creating minimal setup..."
-          # Create a minimal setup.py if none exists
-          cat > setup.py << EOF
-from setuptools import setup, find_packages
-
-setup(
-    name="app",
-    version="0.1.0",
-    packages=find_packages(),
-)
-EOF
+          {
+            echo "from setuptools import setup, find_packages"
+            echo ""
+            echo "setup("
+            echo "    name='app',"
+            echo "    version='0.1.0',"
+            echo "    packages=find_packages(),"
+            echo ")"
+          } > setup.py
           pip install -e .
         fi
 
