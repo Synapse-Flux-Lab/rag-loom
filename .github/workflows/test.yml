@@ -25,7 +25,7 @@ jobs:
     - name: Generate cache key
       id: set-cache-key
       run: |
-        # Create a unique cache key based on test requirements file and setup files
+
         KEY="$RUNNER_OS-pip-$(sha256sum tests/requirements-test.txt setup.py pyproject.toml 2>/dev/null | sha256sum | cut -d' ' -f1)"
         echo "cache-key=$KEY" >> $GITHUB_OUTPUT
 
@@ -41,7 +41,7 @@ jobs:
     - name: Install application in development mode
       run: |
         python -m pip install --upgrade pip
-        # First try to install using setup.py or pyproject.toml
+
         if [ -f "setup.py" ]; then
           pip install -e .
         elif [ -f "pyproject.toml" ]; then
@@ -61,7 +61,6 @@ EOF
           pip install -e .
         fi
 
-        # Install test dependencies
         if [ -f "tests/requirements-test.txt" ]; then
           pip install -r tests/requirements-test.txt
         else
@@ -94,14 +93,12 @@ EOF
     - name: Install application and test dependencies (from cache)
       run: |
         python -m pip install --upgrade pip
-        # Install application in development mode
         if [ -f "setup.py" ]; then
           pip install -e .
         elif [ -f "pyproject.toml" ]; then
           pip install -e .
         fi
         
-        # Install test dependencies
         if [ -f "tests/requirements-test.txt" ]; then
           pip install -r tests/requirements-test.txt
         else
@@ -143,14 +140,12 @@ EOF
     - name: Install application and test dependencies (from cache)
       run: |
         python -m pip install --upgrade pip
-        # Install application in development mode
         if [ -f "setup.py" ]; then
           pip install -e .
         elif [ -f "pyproject.toml" ]; then
           pip install -e .
         fi
         
-        # Install test dependencies
         if [ -f "tests/requirements-test.txt" ]; then
           pip install -r tests/requirements-test.txt
         else
