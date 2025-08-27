@@ -3,10 +3,10 @@ name: Python Tests
 on:
   push:
     branches:
-      - main   # run on direct pushes to main
+      - main
   pull_request:
     branches:
-      - main   # run on PRs targeting main
+      - main
 
 jobs:
   install-dependencies:
@@ -39,9 +39,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install application in development mode
+      - name: Install app and test dependencies
         run: |
           python -m pip install --upgrade pip
+          export PYTHONPATH=$(pwd)
 
           if [ -f "setup.py" ]; then
             pip install -e . --no-cache-dir
@@ -70,7 +71,7 @@ jobs:
           fi
 
   unit-tests:
-    name: Unit Tests (3.12)
+    name: Unit Tests
     runs-on: ubuntu-latest
     needs: install-dependencies
     steps:
@@ -91,29 +92,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install application and test dependencies (from cache)
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f "setup.py" ]; then
-            pip install -e . --no-cache-dir
-          elif [ -f "pyproject.toml" ]; then
-            pip install -e . --no-cache-dir
-          fi
-
-          if [ -f "tests/requirements-test.txt" ]; then
-            pip install -r tests/requirements-test.txt
-          else
-            echo "Error: tests/requirements-test.txt not found!"
-            exit 1
-          fi
-
       - name: Verify app package
         run: |
+          export PYTHONPATH=$(pwd)
           python -c "import app; print('App installed at', app.__file__)"
 
       - name: Run unit tests
         run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          export PYTHONPATH=$(pwd)
           python -m pytest tests/unit/ -v --cov=app --cov-report=xml
 
       - name: Upload coverage reports
@@ -122,9 +108,9 @@ jobs:
           file: ./coverage.xml
 
   integration-tests:
-    name: Integration Tests (3.12)
+    name: Integration Tests
     runs-on: ubuntu-latest
-    needs: [install-dependencies, unit-tests]
+    needs: install-dependencies
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -143,23 +129,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install application and test dependencies (from cache)
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f "setup.py" ]; then
-            pip install -e . --no-cache-dir
-          elif [ -f "pyproject.toml" ]; then
-            pip install -e . --no-cache-dir
-          fi
-
-          if [ -f "tests/requirements-test.txt" ]; then
-            pip install -r tests/requirements-test.txt
-          else
-            echo "Error: tests/requirements-test.txt not found!"
-            exit 1
-          fi
-
       - name: Run integration tests
         run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          export PYTHONPATH=$(pwd)
           python -m pytest tests/integration/ -v
