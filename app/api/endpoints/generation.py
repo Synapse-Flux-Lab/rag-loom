@@ -1,0 +1,56 @@
+from fastapi import APIRouter, HTTPException, status
+import time
+
+from app.models.schemas import GenerationRequest, GenerationResponse, ErrorResponse
+from app.services.retrieval_service import retrieval_service
+from app.services.llm_service import llm_service
+from loguru import logger
+
+router = APIRouter()
+
+@router.post(
+    "/generate",
+    response_model=GenerationResponse,
+    responses={
+        400: {"model": ErrorResponse},
+        500: {"model": ErrorResponse}
+    }
+)
+async def generate_answer(request: GenerationRequest):
+    """
+    Generate an answer to a query using retrieved context.
+    
+    This endpoint can either use provided context or perform a retrieval
+    step first if no context is provided.
+    """
+    start_time = time.time()
+    
+    try:
+        # Retrieve context if not provided
+        if not request.context and request.search_params:
+            request.context = retrieval_service.retrieve(request.search_params)
+        
+        # Generate response
+        answer = llm_service.generate_response(
+            query=request.query,
+            context=request.context or [],
+            temperature=request.temperature,
+            max_tokens=request.max_tokens
+        )
+        
+        generation_time = time.time() - start_time
+        
+        logger.info(f"Generated answer for query in {generation_time:.2f}s")
+        
+        return GenerationResponse(
+            answer=answer,
+            sources=request.context or [],
+            generation_time=generation_time
+        )
+    
+    except Exception as e:
+        logger.error(f"Error in generation endpoint: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error generating answer: {str(e)}"
+        )

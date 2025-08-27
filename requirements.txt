@@ -1,12 +1,39 @@
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
-pydantic==2.10.1
-pydantic-settings==2.1.0
-pypdf==3.17.4
-python-dotenv==1.0.0
-unstructured==0.10.30
-nltk==3.8.1
-regex==2023.12.25
-tqdm==4.66.1
-loguru==0.7.2
+# --- Core Stack ---
+fastapi>=0.104.1,<1.0
+uvicorn[standard]>=0.24.0,<1.0
+python-multipart>=0.0.6,<1.0
+pydantic>=2.10.1,<3.0
+pydantic-settings>=2.1.0,<3.0
+python-dotenv>=1.0.0,<2.0
+loguru>=0.7.2,<1.0
+
+# Document Processing
+pypdf>=3.17.4,<4.0
+unstructured>=0.10.30,<1.0
+
+# NLP and Parsing
+nltk>=3.8.1,<4.0
+regex>=2023.12.25,<2024.0
+tqdm>=4.66.1,<5.0
+
+# --- Vector Storage & AI ---
+chromadb>=0.4.22,<1.0
+sentence-transformers>=2.2.2,<3.0
+openai>=1.3.0,<2.0
+cohere>=4.20,<5.0
+transformers>=4.40.0,<5.0
+tokenizers>=0.15.0,<1.0
+torch>=2.2.0,<2.3.0
+numpy>=1.26.3,<2.0
+pandas>=2.0.3,<3.0
+redis>=5.0.1,<6.0
+qdrant-client>=1.6.4,<2.0
+
+# Instrumentation/Resilience
+tenacity>=8.2.3,<9.0.0
+prometheus-client>=0.17.1,<1.0
+prometheus-fastapi-instrumentator>=6.0.0,<7.0
+opentelemetry-api>=1.19.0,<2.0
+
+# Ollama Python Client
+ollama>=0.1.7,<1.0

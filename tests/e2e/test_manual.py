@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Manual test script for testing the RAG API endpoints
+e2e test script for testing the RAG API endpoints
 Run this after starting your service locally
 """
 
@@ -28,37 +28,37 @@ def test_health_check():
     return True
 
 def test_upload_pdf():
-    """Test PDF file upload"""
-    print("\n📄 Testing PDF upload...")
+    """Test PDF file ingest"""
+    print("\n📄 Testing PDF ingest...")
     try:
         files = {"file": ("test.pdf", TEST_PDF_CONTENT, "application/pdf")}
-        response = requests.post(f"{BASE_URL}/upload", files=files)
+        response = requests.post(f"{BASE_URL}/api/v1/ingest", files=files)
         if response.status_code == 200:
-            print("✅ PDF upload successful:", response.json())
+            print("✅ PDF ingest successful:", response.json())
         else:
-            print("❌ PDF upload failed:", response.status_code, response.text)
+            print("❌ PDF ingest failed:", response.status_code, response.text)
     except Exception as e:
-        print(f"❌ PDF upload error: {e}")
+        print(f"❌ PDF ingest error: {e}")
 
 def test_upload_txt():
-    """Test TXT file upload"""
-    print("\n📝 Testing TXT upload...")
+    """Test TXT file ingest"""
+    print("\n📝 Testing TXT ingest...")
     try:
         files = {"file": ("test.txt", TEST_TXT_CONTENT, "text/plain")}
-        response = requests.post(f"{BASE_URL}/upload", files=files)
+        response = requests.post(f"{BASE_URL}/api/v1/ingest", files=files)
         if response.status_code == 200:
-            print("✅ TXT upload successful:", response.json())
+            print("✅ TXT ingest successful:", response.json())
         else:
-            print("❌ TXT upload failed:", response.status_code, response.text)
+            print("❌ TXT ingest failed:", response.status_code, response.text)
     except Exception as e:
-        print(f"❌ TXT upload error: {e}")
+        print(f"❌ TXT ingest error: {e}")
 
 def test_invalid_file():
-    """Test invalid file upload"""
-    print("\n🚫 Testing invalid file upload...")
+    """Test invalid file ingest"""
+    print("\n🚫 Testing invalid file ingest...")
     try:
         files = {"file": ("test.docx", b"invalid content", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")}
-        response = requests.post(f"{BASE_URL}/upload", files=files)
+        response = requests.post(f"{BASE_URL}/api/v1/ingest", files=files)
         if response.status_code == 400:
             print("✅ Invalid file correctly rejected:", response.json())
         else:
