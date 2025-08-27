@@ -272,7 +272,7 @@ processed/
 chunks/
 embeddings/
 *.pdf
-*.txt
+
 *.docx
 *.doc
 *.pptx
