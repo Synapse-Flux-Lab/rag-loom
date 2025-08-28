@@ -18,7 +18,7 @@ Welcome to the comprehensive documentation for the RAG Platform Kit! This direct
 ```bash
 # Make script executable and run setup
 chmod +x docs/quick_start.sh
-./docs/quick_start.sh setup
+./utilscripts/quick_start.sh setup
 ```
 
 ### 2. **Manual Setup**
@@ -44,22 +44,22 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 python docs/test_api.py
 
 # Or use the quick start script
-./docs/quick_start.sh test
+./utilscripts/quick_start.sh test
 ```
 
 ## 🔧 Available Commands
 
 ### Quick Start Script Commands
 ```bash
-./docs/quick_start.sh setup      # Initial setup
-./docs/quick_start.sh start      # Start service
-./docs/quick_start.sh stop       # Stop service
-./docs/quick_start.sh restart    # Restart service
-./docs/quick_start.sh status     # Check status
-./docs/quick_start.sh test       # Run tests
-./docs/quick_start.sh logs       # View logs
-./docs/quick_start.sh clean      # Cleanup
-./docs/quick_start.sh help       # Show help
+./utilscripts/quick_start.sh setup      # Initial setup
+./utilscripts/quick_start.sh start      # Start service
+./utilscripts/quick_start.sh stop       # Stop service
+./utilscripts/quick_start.sh restart    # Restart service
+./utilscripts/quick_start.sh status     # Check status
+./utilscripts/quick_start.sh test       # Run tests
+./utilscripts/quick_start.sh logs       # View logs
+./utilscripts/quick_start.sh clean      # Cleanup
+./utilscripts/quick_start.sh help       # Show help
 ```
 
 ## 📖 What's Included
@@ -87,11 +87,11 @@ python docs/test_api.py
 ## 🚀 Development Workflow
 
 ### **Local Development**
-1. **Setup**: `./docs/quick_start.sh setup`
-2. **Start**: `./docs/quick_start.sh start`
+1. **Setup**: `./utilscripts/quick_start.sh setup`
+2. **Start**: `./utilscripts/quick_start.sh start`
 3. **Develop**: Make changes to your code
-4. **Test**: `./docs/quick_start.sh test`
-5. **Stop**: `./docs/quick_start.sh stop`
+4. **Test**: `./utilscripts/quick_start.sh test`
+5. **Stop**: `./utilscripts/quick_start.sh stop`
 
 ### **Testing Workflow**
 1. **Unit Tests**: `pytest tests/unit/`
@@ -108,9 +108,9 @@ python docs/test_api.py
 - **Test failures**: Check service status and logs
 
 ### **Getting Help**
-- Check service logs: `./docs/quick_start.sh logs`
-- Verify service status: `./docs/quick_start.sh status`
-- Run tests: `./docs/quick_start.sh test`
+- Check service logs: `./utilscripts/quick_start.sh logs`
+- Verify service status: `./utilscripts/quick_start.sh status`
+- Run tests: `./utilscripts/quick_start.sh test`
 - Review API docs: http://localhost:8000/docs
 
 ## 📁 Project Structure

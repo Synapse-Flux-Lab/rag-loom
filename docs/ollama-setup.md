@@ -243,7 +243,7 @@ ollama run llama2:7b "Explain what RAG means in AI"
 
 ```bash
 # Start the service
-./docs/quick_start.sh start
+./utilscripts/quick_start.sh start
 
 # Test health endpoint
 curl http://localhost:8000/health
