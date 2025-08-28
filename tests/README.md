@@ -34,14 +34,14 @@ pytest tests/unit/          # Unit tests only
 pytest tests/integration/   # Integration tests only
 ```
 
-### 3. Manual Testing
-```bash
-# Start the service locally
-source renv/bin/activate
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+### 3. E2E tests
 
-# In another terminal, run manual tests
-python tests/samples/test_manual.py
+Run the containerized end-to-end suite (requires Docker):
+
+```bash
+bash scripts/e2e_up.sh
+pytest -m e2e -q
+bash scripts/e2e_down.sh
 ```
 
 ## Test Categories
