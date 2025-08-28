@@ -1,8 +1,14 @@
+# e2e tests are infrastructure setup heavy for keeping for now in separate yml
+
 name: e2e
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   e2e:
@@ -16,6 +22,18 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Restore Docker images cache
+        id: docker-cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: docker-cache/docker-images.tar
+          key: docker-images-v1-qdrant-redis-ollama
+
+      - name: Load cached Docker images
+        if: steps.docker-cache-restore.outputs.cache-hit == 'true'
+        run: |
+          docker load -i docker-cache/docker-images.tar || true
 
       - name: Install test requirements
         run: |
@@ -42,5 +60,22 @@ jobs:
         if: always()
         run: |
           docker compose -f tests/docker-compose.yml -f tests/docker-compose.test.yml down -v || true
+
+      - name: Save Docker images cache
+        if: always()
+        run: |
+          mkdir -p docker-cache
+          # Save the commonly used images to speed up future runs
+          docker pull qdrant/qdrant:latest || true
+          docker pull redis:7-alpine || true
+          docker pull ollama/ollama:latest || true
+          docker save qdrant/qdrant:latest redis:7-alpine ollama/ollama:latest -o docker-cache/docker-images.tar || true
+
+      - name: Persist Docker images cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: docker-cache/docker-images.tar
+          key: docker-images-v1-qdrant-redis-ollama
 
 
