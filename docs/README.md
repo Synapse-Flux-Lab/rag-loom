@@ -50,8 +50,8 @@ The RAG (Retrieval-Augmented Generation) Platform Kit is a production-ready micr
 ## Quick Start Guide
 
 ### Prerequisites
-- Python 3.9+
-- pip
+- Python 3.12
+- Docker & Docker Compose (optional for e2e)
 - Git
 
 ### Step 1: Clone and Setup
@@ -60,11 +60,11 @@ The RAG (Retrieval-Augmented Generation) Platform Kit is a production-ready micr
 git clone <your-repo-url>
 cd rag-platform-kit
 
-# Create virtual environment
-python3 -m venv renv
+# Create virtual environment (Python 3.12)
+python3.12 -m venv venvpy312
 
 # Activate virtual environment
-source renv/bin/activate  # On Windows: renv\Scripts\activate
+source venvpy312/bin/activate  # On Windows: venvpy312\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -103,8 +103,8 @@ REDIS_URL=redis://localhost:6379
 # Start the service
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-# Or using Python directly
-python app/main.py
+# Or using helper script
+bash utilscripts/quick_start.sh start
 ```
 
 ### Step 4: Verify Installation
@@ -420,6 +420,12 @@ pytest --cov=app --cov-report=html
 pytest tests/unit/          # Unit tests
 pytest tests/integration/   # Integration tests
 pytest tests/e2e/           # End-to-end tests
+
+### E2E (black-box) runner
+
+```bash
+bash utilscripts/e2e_run.sh
+```
 ```
 
 ### Test Endpoints Manually
@@ -565,12 +571,3 @@ df -h
 3. Make your changes
 4. Add tests for new functionality
 5. Submit a pull request
-
-### License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-**Last Updated**: January 2024  
-**Version**: 1.0.0  
-**Maintainer**: Your Team
