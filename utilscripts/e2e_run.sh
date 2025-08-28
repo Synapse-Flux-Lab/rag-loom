@@ -52,6 +52,17 @@ echo "[e2e] Launching FastAPI service using utils/quick_start.sh with OLLAMA_MOD
 pushd "$ROOT_DIR" >/dev/null
 export OLLAMA_MODEL="${SMALL_OLLAMA_MODEL}"
 ./utilscripts/quick_start.sh  start || true
+QS_STATUS=$?
+if [ $QS_STATUS -ne 0 ]; then
+  echo "[e2e] quick_start returned non-zero ($QS_STATUS). Showing service.log if present:"
+  if [ -f "$ROOT_DIR/service.log" ]; then
+    echo "----- BEGIN service.log (last 200 lines) -----"
+    tail -n 200 "$ROOT_DIR/service.log" || true
+    echo "----- END service.log -----"
+  else
+    echo "[e2e] service.log not found."
+  fi
+fi
 popd >/dev/null
 
 wait_for "$BASE_URL_DEFAULT/health" "rag-api" 240
