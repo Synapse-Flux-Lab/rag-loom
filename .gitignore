@@ -236,7 +236,7 @@ $RECYCLE.BIN/
 # Docker
 .dockerignore
 Dockerfile
-docker-compose*.yml
+
 .docker/
 
 # Logs
@@ -384,3 +384,5 @@ dmypy.json
 
 # Cython
 cython_debug/
+
+tmp/

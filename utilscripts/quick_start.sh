@@ -277,7 +277,7 @@ show_service_info() {
         curl -s "$SERVICE_URL/health" | python3 -m json.tool 2>/dev/null || echo "Could not parse health response"
     else
         print_error "Service Status: Not Running"
-        print_info "To start the service, run: ./docs/quick_start.sh start"
+        print_info "To start the service, run: ./utilscripts/quick_start.sh start"
     fi
 }
 

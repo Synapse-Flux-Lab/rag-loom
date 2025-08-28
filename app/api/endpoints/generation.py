@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, status
 import time
 
-from app.models.schemas import GenerationRequest, GenerationResponse, ErrorResponse
+from app.models.schemas import GenerationRequest, GenerationResponse, ErrorResponse, SearchQuery
+from app.core.config import settings
 from app.services.retrieval_service import retrieval_service
 from app.services.llm_service import llm_service
 from loguru import logger
@@ -27,8 +28,18 @@ async def generate_answer(request: GenerationRequest):
     
     try:
         # Retrieve context if not provided
-        if not request.context and request.search_params:
-            request.context = retrieval_service.retrieve(request.search_params)
+        if not request.context:
+            # Use provided search params or default to settings
+            search_params = request.search_params or SearchQuery(
+                query=request.query,
+                top_k=settings.TOP_K,
+                similarity_threshold=settings.SIMILARITY_THRESHOLD,
+                filters=None
+            )
+            # Ensure query is set if caller provided search_params without query
+            if not getattr(search_params, "query", None):
+                search_params.query = request.query
+            request.context = retrieval_service.retrieve(search_params)
         
         # Generate response
         answer = llm_service.generate_response(

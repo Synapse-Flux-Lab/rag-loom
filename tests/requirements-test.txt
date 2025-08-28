@@ -1,4 +1,7 @@
-pytest==7.4.0
+pytest>=8.0.0
+
+pytest-timeout>=2.2.0
+
 pytest-cov==4.1.0
 
 ##app deps

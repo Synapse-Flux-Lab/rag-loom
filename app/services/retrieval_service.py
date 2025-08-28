@@ -23,8 +23,8 @@ class RetrievalService:
                 filters=query.filters
             )
             
-            # Filter by similarity threshold
-            filtered_results = [
+            # Build SearchResult objects
+            ordered_results: List[SearchResult] = [
                 SearchResult(
                     id=result["id"],
                     content=result["content"],
@@ -33,8 +33,14 @@ class RetrievalService:
                     document_id=result["metadata"].get("document_id")
                 )
                 for result in results
-                if result["similarity_score"] >= query.similarity_threshold
             ]
+
+            # Apply similarity threshold
+            filtered_results = [r for r in ordered_results if r.similarity_score >= (query.similarity_threshold or 0.0)]
+
+            # Fallback: if no results pass the threshold, return the top results anyway
+            if not filtered_results:
+                filtered_results = ordered_results[: query.top_k or 5]
             
             logger.info(f"Retrieved {len(filtered_results)} relevant chunks for query")
             return filtered_results

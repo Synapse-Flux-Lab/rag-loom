@@ -1,0 +1,7 @@
+RAG combines retrieval and generation.
+Embeddings map text into a vector space.
+A vector database indexes embeddings for fast similarity search.
+Retrieval selects relevant chunks.
+The LLM uses retrieved context to generate accurate answers.
+This pipeline improves grounding and reduces hallucinations.
+
