@@ -236,7 +236,7 @@ $RECYCLE.BIN/
 # Docker
 .dockerignore
 Dockerfile
-docker-compose*.yml
+
 .docker/
 
 # Logs
