@@ -51,7 +51,7 @@ pip install -r "$ROOT_DIR/tests/requirements-test.txt"
 echo "[e2e] Launching FastAPI service using utils/quick_start.sh with OLLAMA_MODEL=${SMALL_OLLAMA_MODEL}..."
 pushd "$ROOT_DIR" >/dev/null
 export OLLAMA_MODEL="${SMALL_OLLAMA_MODEL}"
-./utils/quick_start.sh start || true
+./utilscripts/quick_start.sh  start || true
 popd >/dev/null
 
 wait_for "$BASE_URL_DEFAULT/health" "rag-api" 240
@@ -62,12 +62,15 @@ echo "[e2e] BASE_URL=$BASE_URL"
 echo "[e2e] Running pytest e2e suite..."
 pytest -m e2e -q
 
-echo "[e2e] Tests finished. Stopping service and infrastructure..."
+echo "[e2e] Tests finished. Stopping service and infrastructure (keeping containers/images for reuse)..."
 pushd "$ROOT_DIR" >/dev/null
-./utils/quick_start.sh stop || true
+./utilscripts/quick_start.sh stop || true
 popd >/dev/null
 
-docker compose -f "$COMPOSE_BASE" -f "$COMPOSE_TEST" down -v
-echo "[e2e] DONE"
+# Stop containers without removing them or their volumes/images so they can be reused
+# if want to remove: docker compose -f "$COMPOSE_BASE" -f "$COMPOSE_TEST" down -v
+
+docker compose -f "$COMPOSE_BASE" -f "$COMPOSE_TEST" stop || true
+echo "[e2e] DONE (infra containers stopped, not removed)"
 
 
