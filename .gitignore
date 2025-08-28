@@ -272,7 +272,7 @@ processed/
 chunks/
 embeddings/
 *.pdf
-*.txt
+
 *.docx
 *.doc
 *.pptx
@@ -281,7 +281,7 @@ embeddings/
 *.xls
 
 # AI/ML specific
-models/
+
 checkpoints/
 *.pkl
 *.pickle
