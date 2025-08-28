@@ -34,14 +34,23 @@ pytest tests/unit/          # Unit tests only
 pytest tests/integration/   # Integration tests only
 ```
 
-### 3. E2E tests
+### 3. E2E tests (black-box)
 
-Run the containerized end-to-end suite (requires Docker):
+Runs against live infra (Qdrant, Redis, Ollama) via docker compose. The API runs locally (not in Docker) for true black-box testing.
 
 ```bash
-bash scripts/e2e_up.sh
+# One-shot runner that starts infra, ensures small Ollama model, starts API, runs tests, then stops infra
+bash utilscripts/e2e_run.sh
+
+# Or manually:
+docker compose -f tests/docker-compose.yml -f tests/docker-compose.test.yml up -d qdrant redis ollama
+export BASE_URL=http://localhost:8000
+python3.12 -m venv venvpy312 && source venvpy312/bin/activate
+pip install -e . && pip install -r tests/requirements-test.txt
+bash utilscripts/quick_start.sh start
 pytest -m e2e -q
-bash scripts/e2e_down.sh
+bash utilscripts/quick_start.sh stop
+docker compose -f tests/docker-compose.yml -f tests/docker-compose.test.yml stop
 ```
 
 ## Test Categories
@@ -108,3 +117,4 @@ pytest tests/unit/test_file_processing.py::TestFileProcessor::test_extract_text_
 # Run with verbose output
 pytest -vvv
 ```
+
