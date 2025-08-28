@@ -7,7 +7,11 @@ from app.core.config import settings
 from app.models.schemas import IngestionResponse, ErrorResponse, ChunkRequest
 from app.utils.file_processing import FileProcessor
 from app.core.chunking import TextChunker
+from app.core.embeddings import embedding_service
+from app.core.vector_store import vector_store
+from app.models.document_models import DocumentChunk
 from loguru import logger
+from uuid import uuid4
 
 router = APIRouter()
 file_processor = FileProcessor()
@@ -62,10 +66,36 @@ async def ingest_document(
         chunker = TextChunker(**chunker_params)
         chunks = chunker.sliding_window_chunk(cleaned_text)
         
-        processing_time = time.time() - start_time
+        # Prepare chunks with metadata and embeddings, then store in vector DB
+        document_id = uuid4()
+        chunk_metadatas = []
+        doc_chunks = []
+        for idx, chunk_text in enumerate(chunks):
+            metadata = {
+                "document_id": str(document_id),
+                "file_name": file.filename,
+                "file_type": file_type,
+                "chunk_index": idx
+            }
+            chunk_metadatas.append(metadata)
+            doc_chunks.append(
+                DocumentChunk(
+                    document_id=document_id,
+                    content=chunk_text,
+                    metadata=metadata
+                )
+            )
 
-        # In a real implementation, you would store chunks in a vector database here
-        # For now, we'll just return the chunking results       
+        # Generate embeddings in batch
+        embeddings = embedding_service.generate_embeddings([c.content for c in doc_chunks]) if doc_chunks else []
+        for i, emb in enumerate(embeddings):
+            doc_chunks[i].embedding = emb
+
+        # Store in vector store
+        if doc_chunks:
+            vector_store.store_chunks(doc_chunks)
+
+        processing_time = time.time() - start_time
  
         logger.info(f"Processed file {file.filename}: {len(chunks)} chunks created")
         
@@ -76,7 +106,7 @@ async def ingest_document(
             file_type=file_type,      # ADD THIS REQUIRED FIELD
             chunks_created=len(chunks),
             processing_time=round(processing_time, 2),
-            metadata={}  # Optional: add metadata if needed
+            metadata={"document_id": str(document_id)}  # Optional: additional metadata
         )
         
     except HTTPException:
