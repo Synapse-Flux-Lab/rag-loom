@@ -23,13 +23,7 @@ jobs:
           pip install -r tests/requirements-test.txt
 
       - name: Start e2e stack
-        run: bash scripts/e2e_up.sh
-
-      - name: Run e2e tests
-        env:
-          BASE_URL: http://localhost:8000
-        run: |
-          pytest -m e2e -q
+        run: bash utilscripts/e2e_run.sh
 
       - name: Collect docker compose logs on failure
         if: failure()
@@ -46,6 +40,7 @@ jobs:
 
       - name: Tear down e2e stack
         if: always()
-        run: bash scripts/e2e_down.sh
+        run: |
+          docker compose -f tests/docker-compose.yml -f tests/docker-compose.test.yml down -v || true
 
 
