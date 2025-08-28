@@ -281,7 +281,7 @@ embeddings/
 *.xls
 
 # AI/ML specific
-models/
+
 checkpoints/
 *.pkl
 *.pickle
