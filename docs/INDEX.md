@@ -1,6 +1,6 @@
-# RAG Platform Kit - Documentation Index
+# RAG Loom - Documentation Index
 
-Welcome to the comprehensive documentation for the RAG Platform Kit! This directory contains everything you need to understand, set up, test, and deploy your RAG microservice.
+Welcome to the comprehensive documentation for the RAG Loom! This directory contains everything you need to understand, set up, test, and deploy your RAG microservice.
 
 ## 📚 Documentation Files
 
@@ -153,4 +153,4 @@ rag-platform-kit/
 
 **Happy Building! 🚀**
 
-Your RAG Platform Kit is ready to transform how you work with documents and AI-powered search.
+Your RAG Loom is ready to transform how you work with documents and AI-powered search.

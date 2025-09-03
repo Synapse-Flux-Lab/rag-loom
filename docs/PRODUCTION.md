@@ -1,4 +1,4 @@
-# RAG Platform Kit - Production Deployment Guide
+# RAG Loom - Production Deployment Guide
 
 ## 🚀 Quick Start
 
@@ -333,7 +333,7 @@ docker-compose down -v
 
 ---
 
-**🎉 Your RAG Platform Kit is now production-ready with:**
+**🎉 Your RAG Loom is now production-ready with:**
 - ✅ **Local LLM** (Ollama) - No API costs
 - ✅ **Production Vector DB** (Qdrant) - Scalable search
 - ✅ **Caching Layer** (Redis) - Performance optimization

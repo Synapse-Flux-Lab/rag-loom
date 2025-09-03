@@ -1,6 +1,6 @@
-# Testing Guide for RAG Platform Kit
+# Testing Guide for RAG Loom
 
-This directory contains comprehensive tests for the RAG platform kit.
+This directory contains comprehensive tests for the RAG Loom.
 
 ## Directory Structure
 
