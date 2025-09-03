@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# RAG Platform Kit - Quick Start Script
+# RAG Loom - Quick Start Script
 # This script helps you quickly set up and test the RAG service
 
 set -e  # Exit on any error
