@@ -1,4 +1,4 @@
-# Contributing to RAG Platform Kit
+# Contributing to RAG Loom
 
 Thank you for your interest in contributing!
 

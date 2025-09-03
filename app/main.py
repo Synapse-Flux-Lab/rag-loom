@@ -7,7 +7,7 @@ from app.core.config import settings
 from app.api.endpoints import ingestion, retrieval, generation
 
 # Display startup information
-print("🚀 Starting RAG Platform Kit...")
+print("🚀 Starting RAG Loom...")
 print(f"📍 Service will run on: {settings.SERVICE_HOST}:{settings.SERVICE_PORT}")
 print(f"🔧 Vector Store: {settings.VECTOR_STORE_TYPE}")
 print(f"🤖 LLM Provider: {settings.LLM_PROVIDER}")
