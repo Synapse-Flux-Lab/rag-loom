@@ -1,8 +1,8 @@
-# 📚 RAG Service (Open source Reference Implementation)
+# 📚 RAG Loom - RAG Service (Reference Implementation)
 
 ## 🔹 Overview
 
-This project is an **open-source reference implementation of a Retrieval-Augmented Generation (RAG) service**.
+This project is an **Reference implementation of a Retrieval-Augmented Generation (RAG) service**.
 
 Unlike most RAG demos, this repo shows how to integrate **document ingestion, vector search, LLM orchestration, evaluation, observability, and guardrails** into a cohesive, deployable microservice.
 
