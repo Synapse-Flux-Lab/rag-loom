@@ -1,21 +1,48 @@
-MIT License
+License: PolyForm Noncommercial License 1.0.0
+Licensor: Synapse Flux Lab
+Project: RAG Platform Kit
+Copyright (c) 2024-2025 Synapse Flux Lab
 
-Copyright (c) 2025 Junaid
+====================================================================
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+PolyForm Noncommercial License 1.0.0
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Acceptance
+By using the software, you agree to all of the terms and conditions below.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Copyright License
+The licensor grants you a non-exclusive, worldwide, non-sublicensable,
+non-transferable, royalty-free copyright license to reproduce, prepare
+derivative works of, publicly display, publicly perform, and distribute
+the software, subject to the limitations and conditions below.
+
+Noncommercial Purposes
+Any noncommercial purpose is allowed. Noncommercial purposes include
+personal use, research, experiment, and evaluation. Noncommercial
+purposes also include developing applications or services, but only if
+you do not use them to make money, solicit money, or use them for work
+for which you are paid.
+
+Conditions
+You must retain the above license notice and this entire license in
+all copies or substantial portions of the software.
+
+No Other Rights
+These terms do not allow you to sublicense or transfer any of your
+rights. These terms do not grant you any patent rights.
+
+Termination
+If you use the software for a commercial purpose, your rights under
+this license will terminate automatically.
+
+Disclaimer
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT WILL THE COPYRIGHT HOLDER(S) BE
+LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF,
+OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+
+====================================================================
