@@ -1,0 +1,17 @@
+RAG Platform Kit — NOTICE
+
+Copyright (c) 2024–2025 Synapse Flux Lab
+
+This project is licensed under the PolyForm Noncommercial License 1.0.0.
+See LICENSE for details.
+
+Third-Party Dependencies
+-------------------------
+This project makes use of third-party open source libraries, which
+remain under their original licenses.
+
+A full list of dependencies and their versions is available in `requirements.txt`.
+
+These third-party components are licensed separately and are not covered
+by the PolyForm Noncommercial license. Users must comply with their
+respective licenses.
