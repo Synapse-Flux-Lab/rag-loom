@@ -57,6 +57,14 @@ Contributions welcome! Please open issues or submit PRs.
 
 ---
 
-## 🔹 License
+## License
 
-[MIT License](LICENSE)
+This project is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE).
+
+- ✅ Free for noncommercial use: research, personal projects, internal testing, and prototyping
+- 💼 Commercial/production use requires a paid license from Synapse Flux Lab
+
+Third-party libraries remain under their original licenses (see [NOTICE](NOTICE)).
+
+For commercial licensing and support, contact us.
+
