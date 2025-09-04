@@ -1,4 +1,4 @@
-# Ollama Local Setup Guide for RAG Platform Kit
+# Ollama Local Setup Guide for RAG Loom
 
 This guide explains how to install and configure Ollama locally on macOS to run large language models (LLMs) without external API costs for your RAG service.
 

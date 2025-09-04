@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # =============================================================================
-# RAG Platform Kit - Production Startup Script
+# RAG Loom - Production Startup Script
 # =============================================================================
 
 set -e  # Exit on any error
 
-echo "🚀 Starting RAG Platform Kit in Production Mode..."
+echo "🚀 Starting RAG Loom in Production Mode..."
 echo "=================================================="
 
 # Check if Docker is running
@@ -68,7 +68,7 @@ else
 fi
 
 echo ""
-echo "🎉 Production RAG Platform Kit is running!"
+echo "🎉 Production RAG Loom is running!"
 echo "=========================================="
 echo ""
 echo "📚 Available endpoints:"

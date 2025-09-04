@@ -1,4 +1,4 @@
-# RAG Platform Kit - Comprehensive Documentation
+# RAG Loom - Comprehensive Documentation
 
 ## Table of Contents
 1. [Overview](#overview)
