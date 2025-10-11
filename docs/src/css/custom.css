@@ -1,0 +1,13 @@
+:root {
+  --ifm-color-primary: #2557d6;
+  --ifm-color-primary-dark: #204ec1;
+  --ifm-color-primary-darker: #1e48b4;
+  --ifm-color-primary-darkest: #17388f;
+  --ifm-color-primary-light: #3065ee;
+  --ifm-color-primary-lighter: #4a79f0;
+  --ifm-color-primary-lightest: #6d8ff2;
+}
+
+.hero--primary {
+  background: radial-gradient(circle at top, #3065ee, #17388f);
+}
