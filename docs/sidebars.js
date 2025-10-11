@@ -3,7 +3,7 @@
  */
 const sidebars = {
   docsSidebar: [
-    'intro',
+    'Introduction',
     'overview',
     {
       type: 'category',

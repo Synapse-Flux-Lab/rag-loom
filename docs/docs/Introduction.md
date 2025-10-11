@@ -1,4 +1,4 @@
-id: intro
+id: Introduction
 title: Documentation Index
 sidebar_position: 1
 ---

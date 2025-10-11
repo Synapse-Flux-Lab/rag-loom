@@ -14,7 +14,7 @@ const Hero = () => (
       <div className={styles.buttons}>
         <Link
           className="button button--secondary button--lg"
-          to="/docs/intro"
+          to="/docs/Introduction"
         >
           Start Reading
         </Link>
