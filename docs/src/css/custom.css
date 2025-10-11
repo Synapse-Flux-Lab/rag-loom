@@ -1,13 +1,101 @@
 :root {
-  --ifm-color-primary: #2557d6;
-  --ifm-color-primary-dark: #204ec1;
-  --ifm-color-primary-darker: #1e48b4;
-  --ifm-color-primary-darkest: #17388f;
-  --ifm-color-primary-light: #3065ee;
-  --ifm-color-primary-lighter: #4a79f0;
-  --ifm-color-primary-lightest: #6d8ff2;
+  --color-accent-orange: #f97316;
+  --color-dark-grey: #1f2933;
+  --color-mid-grey: #4b5563;
+  --color-true-black: #0b0d0f;
+
+  --ifm-color-primary: var(--color-accent-orange);
+  --ifm-color-primary-dark: #dd650e;
+  --ifm-color-primary-darker: #c75d0d;
+  --ifm-color-primary-darkest: #9a480a;
+  --ifm-color-primary-light: #fb8f3d;
+  --ifm-color-primary-lighter: #fca060;
+  --ifm-color-primary-lightest: #fcbf92;
+
+  --ifm-font-color-base: var(--color-dark-grey);
+  --ifm-menu-color: var(--color-dark-grey);
+  --ifm-link-color: var(--color-accent-orange);
+
+  --hero-background-start: rgba(15, 16, 18, 0.95);
+  --hero-background-end: rgba(31, 41, 51, 0.92);
+
+  --docsearch-primary-color: var(--color-accent-orange);
+  --docsearch-text-color: var(--color-dark-grey);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #ff8b3d;
+  --ifm-color-primary-dark: #dd6d20;
+  --ifm-color-primary-darker: #bf5a18;
+  --ifm-color-primary-darkest: #9a460f;
+  --ifm-color-primary-light: #ff9f60;
+  --ifm-color-primary-lighter: #ffb583;
+  --ifm-color-primary-lightest: #ffd5b3;
+
+  --ifm-font-color-base: #f3f4f6;
+  --ifm-menu-color: #f3f4f6;
+  --ifm-link-color: #ff9f60;
+
+  --hero-background-start: rgba(7, 7, 8, 0.95);
+  --hero-background-end: rgba(17, 24, 39, 0.85);
+
+  --docsearch-text-color: #f3f4f6;
+}
+
+.navbar {
+  background-color: var(--color-true-black);
+}
+
+.navbar__brand,
+.navbar__item {
+  color: var(--ifm-color-primary) !important;
+}
+
+.navbar__item:hover,
+.navbar__item.navbar__link:hover {
+  color: var(--ifm-color-primary-light) !important;
+}
+
+.navbar__brand:hover {
+  color: var(--ifm-color-primary-light) !important;
+}
+
+.navbar__toggle {
+  color: var(--ifm-color-primary);
+}
+
+.navbar__toggle:hover {
+  color: var(--ifm-color-primary-light);
+}
+
+.footer {
+  background: var(--color-true-black);
+  color: #f3f4f6;
 }
 
 .hero--primary {
-  background: radial-gradient(circle at top, #3065ee, #17388f);
+  background: radial-gradient(circle at top, var(--hero-background-start), var(--hero-background-end));
+  color: var(--ifm-color-primary);
+}
+
+.hero--primary .hero__subtitle {
+  color: var(--ifm-color-primary);
+}
+
+.button.button--secondary {
+  background-color: var(--ifm-color-primary);
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.button--secondary:hover {
+  background-color: var(--ifm-color-primary-dark);
+}
+
+.mainContent {
+  background-color: #fff;
+}
+
+[data-theme='dark'] .mainContent {
+  background-color: var(--color-true-black);
 }

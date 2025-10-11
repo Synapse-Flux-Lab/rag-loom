@@ -5,9 +5,49 @@ const sidebars = {
   docsSidebar: [
     'intro',
     'overview',
-    'usage',
-    'production',
-    'ollama-setup',
+    {
+      type: 'category',
+      label: 'Getting Started',
+      collapsed: false,
+      items: [
+        'getting-started/requirements',
+        'getting-started/quickstart',
+        'getting-started/structure',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Architecture',
+      items: [
+        'architecture/system-design',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'API',
+      items: [
+        'api/rest-api',
+        'api/client-recipes',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Operations',
+      items: [
+        'operations/deployment',
+        'operations/monitoring',
+        'operations/scaling',
+        'operations/security',
+        'operations/troubleshooting',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Integrations',
+      items: [
+        'integrations/ollama',
+      ],
+    },
   ],
 };
 

@@ -12,7 +12,7 @@ const config = {
 
   url: 'https://your-domain.com',
   baseUrl: '/',
-  organizationName: 'SynapseFluxLab',
+  organizationName: 'Synapse-Flux-Lab',
   projectName: 'rag-loom-docs',
 
   onBrokenLinks: 'throw',
@@ -22,6 +22,12 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
 
   presets: [
     [
@@ -43,10 +49,6 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
       navbar: {
         title: 'RAG Loom',
-        logo: {
-          alt: 'RAG Loom Logo',
-          src: 'img/logo.svg',
-        },
         items: [
           {
             type: 'docSidebar',
@@ -83,7 +85,7 @@ const config = {
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} SynapseFluxLab. Built with Docusaurus.`,
+        copyright: `© ${new Date().getFullYear()} Synapse-Flux-Lab. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
