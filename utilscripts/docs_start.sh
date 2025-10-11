@@ -10,7 +10,7 @@ cd "${DOCS_DIR}"
 
 PACKAGE_MANAGER="$(detect_package_manager)"
 
-if [[ ! -d node_modules ]]; then
+if needs_install; then
   echo "Installing documentation dependencies with ${PACKAGE_MANAGER}..."
   run_install "${PACKAGE_MANAGER}"
 fi

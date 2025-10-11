@@ -4,6 +4,8 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DOCS_DIR="${ROOT_DIR}/docs"
+PACKAGE_JSON="${DOCS_DIR}/package.json"
+STAMP_FILE="${DOCS_DIR}/node_modules/.package-json.sha1"
 
 ensure_docs_dir() {
   if [[ ! -d "${DOCS_DIR}" ]]; then
@@ -33,6 +35,11 @@ run_install() {
       exit 1
       ;;
   esac
+
+  if [[ -f "${PACKAGE_JSON}" ]]; then
+    mkdir -p "$(dirname "${STAMP_FILE}")"
+    shasum "${PACKAGE_JSON}" | awk '{print $1}' > "${STAMP_FILE}"
+  fi
 }
 
 run_command() {
@@ -47,4 +54,24 @@ run_command() {
       exit 1
       ;;
   esac
+}
+
+needs_install() {
+  if [[ ! -d "${DOCS_DIR}/node_modules" ]]; then
+    return 0
+  fi
+
+  if [[ ! -f "${STAMP_FILE}" ]]; then
+    return 0
+  fi
+
+  if [[ ! -f "${PACKAGE_JSON}" ]]; then
+    return 1
+  fi
+
+  local current_hash stored_hash
+  current_hash="$(shasum "${PACKAGE_JSON}" | awk '{print $1}')"
+  stored_hash="$(cat "${STAMP_FILE}")"
+
+  [[ "${current_hash}" != "${stored_hash}" ]]
 }
