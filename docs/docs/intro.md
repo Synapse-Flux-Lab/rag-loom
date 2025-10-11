@@ -1,23 +1,27 @@
-# RAG Loom - Documentation Index
+---
+id: intro
+title: Documentation Index
+sidebar_position: 1
+---
 
 Welcome to the comprehensive documentation for the RAG Loom! This directory contains everything you need to understand, set up, test, and deploy your RAG microservice.
 
 ## 📚 Documentation Files
 
 ### 🚀 Getting Started
-- **[README.md](README.md)** - Comprehensive project documentation with API reference
-- **[env.example](env.example)** - Environment configuration template
-- **[quick_start.sh](quick_start.sh)** - Automated setup and testing script
+- **[Comprehensive Documentation](./overview)** - Architecture, APIs, and workflows
+- **Environment Template:** [env.example](/files/env.example) - Copy to `.env` and customise
+- **Quick Start Script:** [utilscripts/quick_start.sh](https://github.com/SynapseFluxLab/rag-loom/blob/main/utilscripts/quick_start.sh) - Automated setup helpers
 
 ### 🧪 Testing & Development
-- **[test_api.py](test_api.py)** - Comprehensive API testing suite with sample data
+- **Test Suite:** Run `pytest` (or `pytest test_service.py` for a quick smoke test)
 
 ## 🎯 Quick Start Guide
 
 ### 1. **One-Command Setup** (Recommended)
 ```bash
 # Make script executable and run setup
-chmod +x docs/quick_start.sh
+chmod +x utilscripts/quick_start.sh
 ./utilscripts/quick_start.sh setup
 ```
 
@@ -31,7 +35,7 @@ source renv/bin/activate
 pip install -r requirements.txt
 
 # Configure environment
-cp docs/env.example .env
+cp docs/static/files/env.example .env
 # Edit .env with your API keys
 
 # Start service
@@ -40,11 +44,8 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ### 3. **Test Your Setup**
 ```bash
-# Run comprehensive API tests
-python docs/test_api.py
-
-# Or use the quick start script
-./utilscripts/quick_start.sh test
+# Run unit and integration tests
+pytest
 ```
 
 ## 🔧 Available Commands
@@ -96,7 +97,7 @@ python docs/test_api.py
 ### **Testing Workflow**
 1. **Unit Tests**: `pytest tests/unit/`
 2. **Integration Tests**: `pytest tests/integration/`
-3. **API Tests**: `python docs/test_api.py`
+3. **API Smoke Test**: `pytest test_service.py`
 4. **Coverage**: `pytest --cov=app --cov-report=html`
 
 ## 🔍 Troubleshooting
@@ -117,25 +118,19 @@ python docs/test_api.py
 
 ```
 rag-platform-kit/
-├── app/                    # Application source code
-│   ├── api/               # API endpoints
-│   ├── core/              # Core functionality
-│   ├── models/            # Data models
-│   ├── services/          # Business logic
-│   └── utils/             # Utility functions
-├── docs/                  # Documentation (this directory)
-│   ├── README.md          # Comprehensive docs
-│   ├── test_api.py        # API testing suite
-│   ├── quick_start.sh     # Setup script
-│   └── env.example        # Environment template
+├── app/                   # Application source code
+├── docs/                  # Docusaurus documentation site
+│   ├── docs/              # Markdown sources (you're here)
+│   ├── src/               # Site customisations
+│   └── static/files/      # Downloadable assets (e.g. env.example)
 ├── tests/                 # Test suite
-├── requirements.txt        # Python dependencies
+├── requirements.txt       # Python dependencies
 └── Dockerfile             # Container configuration
 ```
 
 ## 🌟 Next Steps
 
-1. **Read the [README.md](README.md)** for detailed information
+1. **Read the [Comprehensive Documentation](./overview)** for detailed information
 2. **Run the setup script** to get started quickly
 3. **Configure your environment** with API keys
 4. **Test your endpoints** with the testing suite
@@ -144,7 +139,7 @@ rag-platform-kit/
 
 ## 📞 Support
 
-- **Documentation**: Check the README.md for detailed guides
+- **Documentation**: Check the [Comprehensive Documentation](./overview) for detailed guides
 - **Testing**: Use the test suite to verify functionality
 - **Issues**: Check logs and test results for troubleshooting
 - **Development**: Use the quick start script for automation

@@ -1,14 +1,20 @@
-# start service
+---
+id: usage
+title: Usage Guide
+sidebar_position: 3
+---
+
+## Start the Service
 
 `docker build -t rag-microservice .`
 `docker run -p 8000:8000 rag-microservice`
 
 or
-activate venv, 
-install dependencies, 
+activate venv,
+install dependencies,
 `python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload`
 
-# Upload a document
+## Upload a Document
 
 `curl -X POST "http://localhost:8000/api/v1/ingest" \
   -H "accept: application/json" \
@@ -17,14 +23,15 @@ install dependencies,
   -F 'chunk_params={"chunk_size": 1000, "chunk_overlap": 200}'
   `
 
-  # Ingest a doc
+## Ingest a Document
 
-`  curl -X POST "http://localhost:8000/api/v1/ingest" \
+`curl -X POST "http://localhost:8000/api/v1/ingest" \
   -H "accept: application/json" \
   -H "Content-Type: multipart/form-data" \
   -F "file=@document.pdf"
 `
-  # Search for similar content
+
+## Search for Similar Content
 
 `curl -X POST "http://localhost:8000/api/v1/search" \
   -H "Content-Type: application/json" \
@@ -34,7 +41,7 @@ install dependencies,
     "similarity_threshold": 0.7
   }'`
 
-  # Generate an answer
+## Generate an Answer
 
 `curl -X POST "http://localhost:8000/api/v1/generate" \
   -H "Content-Type: application/json" \

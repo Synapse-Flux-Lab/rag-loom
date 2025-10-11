@@ -1,4 +1,8 @@
-# RAG Loom - Production Deployment Guide
+---
+id: production
+title: Production Deployment Guide
+sidebar_position: 4
+---
 
 ## 🚀 Quick Start
 

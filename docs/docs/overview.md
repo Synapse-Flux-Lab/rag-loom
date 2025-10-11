@@ -1,4 +1,8 @@
-# RAG Loom - Comprehensive Documentation
+---
+id: overview
+title: Comprehensive Documentation
+sidebar_position: 2
+---
 
 ## Table of Contents
 1. [Overview](#overview)
@@ -73,7 +77,7 @@ pip install -r requirements.txt
 ### Step 2: Environment Configuration
 ```bash
 # Create .env file
-cp .env.example .env
+cp docs/static/files/env.example .env
 
 # Edit .env with your API keys
 nano .env
