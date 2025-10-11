@@ -1,5 +1,6 @@
+---
 id: Introduction
-title: Documentation Index
+title: Introduction
 sidebar_position: 1
 ---
 
