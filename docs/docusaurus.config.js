@@ -57,6 +57,12 @@ const config = {
             label: 'Documentation',
           },
           {
+            href: 'https://synapsefluxlab.pages.dev/',
+            label: 'Synapse Flux Lab',
+            position: 'right',
+            className: 'navbar__link--cta',
+          },
+          {
             href: 'https://github.com/Synapse-Flux-Lab/rag-loom',
             label: 'GitHub',
             position: 'right',
@@ -81,6 +87,15 @@ const config = {
               {
                 label: 'GitHub Issues',
                 href: 'https://github.com/Synapse-Flux-Lab/rag-loom/issues',
+              },
+            ],
+          },
+          {
+            title: 'SynapseFluxLab',
+            items: [
+              {
+                label: 'Visit Parent Studio',
+                href: 'https://synapsefluxlab.pages.dev/',
               },
             ],
           },
