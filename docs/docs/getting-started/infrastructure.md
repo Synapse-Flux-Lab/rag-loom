@@ -16,6 +16,10 @@ This means the service will run with sensible defaults out of the box, but any v
 
 ## Environment Variables and Defaults
 
+Four primary groups of settings control how the platform behaves. Start with `.env` to override the defaults shown here.
+
+### Platform & Runtime
+
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `PROJECT_NAME` | `RAG Loom API` | Branding for generated docs and metadata. |
@@ -24,44 +28,65 @@ This means the service will run with sensible defaults out of the box, but any v
 | `CHUNK_SIZE` | `1000` | Default characters per chunk during ingestion. |
 | `CHUNK_OVERLAP` | `200` | Overlap between consecutive chunks. |
 | `MAX_FILE_SIZE` | `10485760` | Maximum upload size (bytes). |
+| `SERVICE_PORT` | `8000` | Port bound by Uvicorn. |
+| `SERVICE_HOST` | `0.0.0.0` | Listen address (0.0.0.0 to expose externally). |
+| `LOG_LEVEL` | `INFO` | Log verbosity for FastAPI/Uvicorn. |
+| `DEBUG` | `False` | Enables additional debug output. |
+| `RELOAD` | `False` | Auto-reload flag for local development. |
+| `WORKER_PROCESSES` | `4` | Number of Uvicorn worker processes. |
+| `MAX_CONCURRENT_REQUESTS` | `100` | Back-pressure guard for FastAPI. |
+| `REQUEST_TIMEOUT` | `300` | Maximum request processing time (seconds). |
+| `ENABLE_METRICS` | `True` | Expose Prometheus `/metrics`. |
+| `ENABLE_TRACING` | `False` | Placeholder for future tracing integrations. |
+| `CORS_ORIGINS` | `["http://localhost:3000", "http://127.0.0.1:3000"]` | Allow-listed front-end origins. |
+| `DATABASE_URL` | `sqlite:///./rag_platform.db` | Metadata database (SQLite by default). |
+| `UPLOAD_DIR` | `./uploads` | Temp storage for incoming files. |
+| `PROCESSED_DIR` | `./processed` | Location for processed artifacts. |
+| `CACHE_DIR` | `./cache` | General cache directory. |
+| `LOGS_DIR` | `./logs` | Runtime log directory. |
+
+### Vector Store & Retrieval
+
+These variables determine where embeddings are stored and how retrieval behaves. They should mirror the backend you deploy in Docker Compose or managed infrastructure.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
 | `VECTOR_STORE_TYPE` | `chroma` | Vector backend (`chroma`, `qdrant`, or `redis`). |
-| `CHROMA_PERSIST_DIRECTORY` | `./chroma_db` | Path for embedded Chroma database. |
-| `QDRANT_URL` | `http://localhost:6333` | Remote Qdrant endpoint. |
-| `QDRANT_API_KEY` | `None` | Auth token for secured Qdrant clusters. |
+| `CHROMA_PERSIST_DIRECTORY` | `./chroma_db` | On-disk location for embedded Chroma. |
+| `QDRANT_URL` | `http://localhost:6333` | Qdrant endpoint. |
+| `QDRANT_API_KEY` | `None` | Auth token when Qdrant security is enabled. |
 | `REDIS_URL` | `redis://localhost:6379` | Redis connection string with RediSearch. |
 | `EMBEDDING_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | Default embedding model identifier. |
-| `EMBEDDING_DIM` | `384` | Dimensionality matching the embedding model. |
-| `LLM_PROVIDER` | `ollama` | Active LLM adapter (`ollama`, `openai`, `cohere`, `huggingface`). |
+| `EMBEDDING_DIM` | `384` | Dimensionality expected by the vector store. |
+| `TOP_K` | `5` | Number of results returned by retrieval. |
+| `SIMILARITY_THRESHOLD` | `0.7` | Minimum similarity score before fallback rules apply. |
+
+### LLM Providers
+
+Choose the provider that matches your deployment targets. Only the keys required by the selected provider need to be populated.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `LLM_PROVIDER` | `ollama` | Active adapter (`ollama`, `openai`, `cohere`, `huggingface`). |
+| `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama daemon address. |
+| `OLLAMA_MODEL` | `gemma2:2b` | Default Ollama model tag. |
+| `OLLAMA_NUM_PARALLEL` | `2` | Concurrency hint for Ollama requests. |
 | `OPENAI_API_KEY` | `None` | Required when `LLM_PROVIDER=openai`. |
 | `OPENAI_MODEL` | `gpt-3.5-turbo` | Default OpenAI chat model. |
 | `COHERE_API_KEY` | `None` | Required when `LLM_PROVIDER=cohere`. |
 | `COHERE_MODEL` | `command-xlarge` | Cohere generation model. |
 | `HUGGINGFACE_API_KEY` | `None` | Required for private Hugging Face models. |
 | `HUGGINGFACE_MODEL` | `google/flan-t5-large` | Transformers pipeline model. |
-| `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama daemon address. |
-| `OLLAMA_MODEL` | `gemma2:2b` | Default Ollama model tag. |
-| `OLLAMA_NUM_PARALLEL` | `2` | Concurrency hint for Ollama requests. |
-| `TOP_K` | `5` | Default number of retrieval results. |
-| `SIMILARITY_THRESHOLD` | `0.7` | Minimum similarity score before fallback. |
-| `CORS_ORIGINS` | `["http://localhost:3000", "http://127.0.0.1:3000"]` | Allowed front-end origins. |
-| `DATABASE_URL` | `sqlite:///./rag_platform.db` | Path to the SQLite metadata database. |
-| `SERVICE_PORT` | `8000` | Port bound by Uvicorn. |
-| `SERVICE_HOST` | `0.0.0.0` | Listen address (0.0.0.0 to expose externally). |
-| `LOG_LEVEL` | `INFO` | Log verbosity for FastAPI/uvicorn. |
-| `DEBUG` | `False` | Enable additional debug features. |
-| `RELOAD` | `False` | Uvicorn auto-reload flag (set `True` for local dev). |
-| `WORKER_PROCESSES` | `4` | Number of Uvicorn worker processes. |
-| `MAX_CONCURRENT_REQUESTS` | `100` | Back-pressure guard for FastAPI. |
-| `REQUEST_TIMEOUT` | `300` | Maximum request processing time in seconds. |
+
+### Security & Access Control
+
+Enable these when you deploy beyond trusted environments.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
 | `ENABLE_AUTH` | `False` | Toggle authentication middleware. |
 | `SECRET_KEY` | `your_production_secret_key_here` | Signing key used when auth is enabled. |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | `30` | Token lifetime for auth flows. |
-| `ENABLE_METRICS` | `True` | Expose Prometheus `/metrics` endpoint. |
-| `ENABLE_TRACING` | `False` | Hook for tracing integrations. |
-| `UPLOAD_DIR` | `./uploads` | Temporary storage for incoming files. |
-| `PROCESSED_DIR` | `./processed` | Location for processed document artifacts. |
-| `CACHE_DIR` | `./cache` | General cache directory. |
-| `LOGS_DIR` | `./logs` | Directory for runtime logs. |
 
 > Tip: copy `docs/static/files/env.example` to `.env` and adjust only the values you need. Everything else will automatically fall back to the defaults above.
 
