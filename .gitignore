@@ -386,3 +386,5 @@ dmypy.json
 cython_debug/
 
 tmp/
+
+service.pid
