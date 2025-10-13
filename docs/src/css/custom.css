@@ -72,12 +72,44 @@
   color: var(--color-accent-orange) !important;
 }
 
+.navbar__link--cta {
+  background: linear-gradient(135deg, var(--color-accent-orange), var(--color-accent-orange-soft));
+  color: #0f172a !important;
+  border-radius: 999px;
+  padding: 0.35rem 1.1rem;
+  font-weight: 600;
+  margin-left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 12px 24px rgba(249, 115, 22, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.navbar__link--cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(249, 115, 22, 0.45);
+  background: linear-gradient(135deg, var(--color-accent-orange-soft), var(--color-accent-orange));
+}
+
 .navbar__toggle {
   color: var(--color-cloud);
 }
 
 .navbar__toggle:hover {
   color: var(--color-accent-orange-soft);
+}
+
+.navbar__item svg,
+.navbar__link svg {
+  fill: currentColor;
+  stroke: none;
+  transition: fill 0.2s ease;
+}
+
+.navbar__item:hover svg,
+.navbar__link:hover svg {
+  fill: currentColor;
 }
 
 .navbar__logo img {
@@ -139,6 +171,16 @@
 .button.button--secondary:hover,
 .button.button--primary:hover {
   background-color: var(--ifm-color-primary-dark);
+}
+
+.button.button--outline {
+  border: 1px solid rgba(249, 115, 22, 0.45);
+  color: var(--color-accent-orange);
+  background: transparent;
+}
+
+.button.button--outline:hover {
+  background: rgba(249, 115, 22, 0.12);
 }
 
 .mainContent {

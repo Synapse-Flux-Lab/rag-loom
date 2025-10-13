@@ -10,7 +10,7 @@ const config = {
   tagline: 'Documentation hub for the RAG Loom project',
   favicon: 'img/logo.svg',
 
-  url: 'https://your-domain.com',
+  url: 'https://ragloom.pages.dev/',
   baseUrl: '/',
   organizationName: 'Synapse-Flux-Lab',
   projectName: 'rag-loom-docs',
@@ -49,12 +49,22 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
       navbar: {
         title: 'RAG Loom',
+        logo: {
+          alt: 'RAG Loom Logo',
+          src: 'img/logo.svg',
+        },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'docsSidebar',
             position: 'left',
             label: 'Documentation',
+          },
+          {
+            href: 'https://synapsefluxlab.pages.dev/',
+            label: 'Synapse Flux Lab',
+            position: 'right',
+            className: 'navbar__link--cta',
           },
           {
             href: 'https://github.com/Synapse-Flux-Lab/rag-loom',
@@ -81,6 +91,15 @@ const config = {
               {
                 label: 'GitHub Issues',
                 href: 'https://github.com/Synapse-Flux-Lab/rag-loom/issues',
+              },
+            ],
+          },
+          {
+            title: 'SynapseFluxLab',
+            items: [
+              {
+                label: 'Visit Parent Studio',
+                href: 'https://synapsefluxlab.pages.dev/',
               },
             ],
           },
