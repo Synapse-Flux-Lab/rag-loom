@@ -33,7 +33,7 @@ Secure configuration is essential when RAG Loom handles sensitive data. This che
 
 - Enable metrics (`ENABLE_METRICS=true`) and integrate with alerting platforms to detect anomalies.
 - Capture audit logs for ingestion and generation events, including user identifiers where appropriate.
-- Establish incident response procedures and practice disaster recovery (see [Deployment](./deployment) for backup steps).
+- Establish incident response procedures and practice disaster recovery (coordinate with the runbooks in [Scaling](./scaling) and [Troubleshooting](./troubleshooting)).
 
 ## Dependency Management
 
