@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     
     # Ollama settings
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "mixtral:latest"
+    OLLAMA_MODEL: str = "gemma2:2b"
     OLLAMA_NUM_PARALLEL: int = 2
     
     # Retrieval settings
