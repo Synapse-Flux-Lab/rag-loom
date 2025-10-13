@@ -27,7 +27,7 @@ RAG Loom provides a production-quality retrieval-augmented generation (RAG) micr
 | [Getting Started](./getting-started/requirements) | First-time setup | Prerequisites, local bootstrap, project layout |
 | [Architecture](./architecture/system-design) | Planning & design reviews | High-level system view and component responsibilities |
 | [API](./api/rest-api) | Building client integrations | Endpoint catalogue, payloads, and curl recipes |
-| [Operations](./operations/deployment) | Deploying or running in production | Deployment automation, monitoring, scaling, troubleshooting |
+| [Operations](./operations/scaling) | Running in production | Scaling strategies, security hardening, troubleshooting guides |
 | [Integrations](./integrations/ollama) | Configuring external services | Ollama integration guidance and performance tips |
 
 ## Quick Actions

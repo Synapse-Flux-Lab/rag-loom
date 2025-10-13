@@ -35,8 +35,6 @@ const sidebars = {
       type: 'category',
       label: 'Operations',
       items: [
-        'operations/deployment',
-        'operations/monitoring',
         'operations/scaling',
         'operations/security',
         'operations/troubleshooting',

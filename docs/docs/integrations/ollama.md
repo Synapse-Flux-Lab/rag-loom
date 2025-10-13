@@ -164,4 +164,4 @@ Restart the runtime with `brew services restart ollama` (macOS) or `docker compo
 - Keep the Ollama binary and models up to date.
 - Snapshot downloaded models regularly so you can roll back when needed.
 
-Once Ollama is configured, monitor its health alongside other services via [Monitoring & Observability](../operations/monitoring).
+Once Ollama is configured, monitor its health alongside other services using the observability tooling covered in the [Operations guides](../operations/scaling).

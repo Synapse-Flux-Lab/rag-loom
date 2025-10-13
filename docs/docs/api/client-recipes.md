@@ -96,4 +96,4 @@ def generate(query: str):
 - Include metadata (titles, tags) in ingestion payloads to improve retrieval filters.
 - Use exponential backoff when interacting with hosted providers that enforce rate limits.
 
-Continue to [REST API Reference](./rest-api) for full endpoint details or [Production Deployment](../operations/deployment) once you begin integrating in staging environments.
+Continue to [REST API Reference](./rest-api) for full endpoint details or review the [Operations guides](../operations/scaling) as you prepare staging and production rollouts.
