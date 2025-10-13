@@ -28,15 +28,13 @@ const sidebars = {
       label: 'API',
       items: [
         'api/rest-api',
-        'api/client-recipes',
+        'api/script-examples',
       ],
     },
     {
       type: 'category',
       label: 'Operations',
       items: [
-        'operations/deployment',
-        'operations/monitoring',
         'operations/scaling',
         'operations/security',
         'operations/troubleshooting',

@@ -50,3 +50,21 @@ class TestIngestionAPI:
         files = {"file": ("empty.txt", b"", "text/plain")}
         response = client.post("/api/v1/ingest", files=files)
         assert response.status_code == 200  # Should handle empty files gracefully
+
+    def test_ingest_batch_files(self, client: TestClient, sample_txt_content):
+        """Test batch ingest endpoint processes multiple files"""
+        files = [
+            ("files", ("batch1.txt", sample_txt_content, "text/plain")),
+            ("files", ("batch2.txt", b"Additional batch file content.", "text/plain")),
+        ]
+
+        response = client.post("/api/v1/ingest/batch", files=files)
+        assert response.status_code == 200
+
+        data = response.json()
+        assert isinstance(data, list)
+        assert len(data) == 2
+        for item in data:
+            assert item["chunks_created"] >= 0
+            assert item["file_name"] in {"batch1.txt", "batch2.txt"}
+            assert item["message"]

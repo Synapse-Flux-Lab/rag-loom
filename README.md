@@ -2,7 +2,7 @@
 
 ## 🔹 Overview
 
-This project is an **Reference implementation of a Retrieval-Augmented Generation (RAG) service**.
+This project is an **Reference implementation of a Retrieval-Augmented Generation (RAG) service**. Explore the hosted documentation at [RAG Loom Docs](https://ragloom.pages.dev/).
 
 Unlike most RAG demos, this repo shows how to integrate **document ingestion, vector search, LLM orchestration, evaluation, observability, and guardrails** into a cohesive, deployable microservice.
 
@@ -49,17 +49,12 @@ Supporting layers:
 * [ ]  Add evals (Ragas/Evals), tracing (Langfuse), Docker/K8s deployment
 * [ ]  Add guardrails (PII filter, profanity check), prompt/dataset versioning
 
----
-
-## 🔹 Contributing
-
-Contributions welcome! Please open issues or submit PRs.
 
 ---
 
 ## License
 
-This project is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE).
+This project is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE). Commercial licensing and support are provided by [Synapse Flux Lab](https://synapsefluxlab.pages.dev/).
 
 - ✅ Free for noncommercial use: research, personal projects, internal testing, and prototyping
 - 💼 Commercial/production use requires a paid license from Synapse Flux Lab
@@ -67,4 +62,3 @@ This project is licensed under the [PolyForm Noncommercial License 1.0.0](LICENS
 Third-party libraries remain under their original licenses (see [NOTICE](NOTICE)).
 
 For commercial licensing and support, contact us.
-

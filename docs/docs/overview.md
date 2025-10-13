@@ -11,9 +11,9 @@ This page summarises RAG Loom's capabilities, primary components, and common dep
 | Scenario | Description | Where to Learn More |
 | --- | --- | --- |
 | Knowledge base search | Ingest private documents and expose semantic search and summarisation | [Quick Start](./getting-started/quickstart), [REST API](./api/rest-api) |
-| Production Q&A service | Serve retrieval-augmented responses with observability and scaling | [Production Deployment](./operations/deployment), [Monitoring](./operations/monitoring) |
+| Production Q&A service | Serve retrieval-augmented responses with observability and scaling | [Scaling](./operations/scaling), [Security](./operations/security) |
 | Local experimentation | Run entirely offline with Ollama-backed models | [Ollama Integration](./integrations/ollama) |
-| Custom workflow integration | Embed the service within existing platforms or pipelines | [Client Recipes](./api/client-recipes) |
+| Custom workflow integration | Embed the service within existing platforms or pipelines | [REST API](./api/rest-api), [API Script Playbook](./api/script-examples) |
 
 ## Feature Highlights
 
@@ -42,15 +42,15 @@ See [System Design Overview](./architecture/system-design) for a detailed diagra
 | Scaling | Horizontal worker scaling, vector store tuning, model selection guidance |
 | Security | Authentication hooks, network hardening, and secrets management |
 
-Links to the relevant runbooks are available in the [Operations](./operations/deployment) section.
+Links to the relevant runbooks are available in the [Operations](./operations/scaling) section.
 
 ## Development Workflow
 
 1. Prepare your environment ([Prerequisites](./getting-started/requirements)).
 2. Launch locally ([Quick Start](./getting-started/quickstart)).
 3. Execute automated tests (`pytest`).
-4. Review API schemas at `/docs` and explore example requests in [Client Recipes](./api/client-recipes).
-5. Plan production rollout with the [Deployment](./operations/deployment) guide.
+4. Review API schemas at `/docs` and explore example requests in the [API Script Playbook](./api/script-examples).
+5. Plan production rollout with the [Scaling](./operations/scaling) and [Security](./operations/security) guides.
 
 ## Extending the Platform
 

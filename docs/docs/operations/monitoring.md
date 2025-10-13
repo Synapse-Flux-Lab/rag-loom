@@ -2,6 +2,7 @@
 id: monitoring
 title: Monitoring & Observability
 sidebar_position: 2
+draft: true
 ---
 
 The production stack includes Prometheus for metrics collection and Grafana for visualisation. This guide explains how to leverage both and extend them for your environment.

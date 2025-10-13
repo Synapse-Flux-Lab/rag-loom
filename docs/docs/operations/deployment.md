@@ -2,6 +2,7 @@
 id: deployment
 title: Production Deployment
 sidebar_position: 1
+draft: true
 ---
 
 RAG Loom ships with a Docker-based production stack orchestrated via `start_production.sh`. This document explains how to configure, launch, and validate that stack.

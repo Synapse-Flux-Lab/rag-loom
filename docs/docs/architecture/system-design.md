@@ -102,7 +102,7 @@ For production environments, RAG Loom operates as part of a docker-compose stack
 - `ollama`: Optional local LLM runtime (if not using hosted providers).
 - `prometheus` and `grafana`: Monitoring stack.
 
-See [Production Deployment](../operations/deployment) for container topology details and operational guidance.
+See [Operations: Scaling](../operations/scaling) for container topology considerations and tuning guidance.
 
 ## Extensibility
 
@@ -110,4 +110,4 @@ See [Production Deployment](../operations/deployment) for container topology det
 - Add providers (e.g., Azure OpenAI) by extending the LLM adapter set.
 - Hook into FastAPI dependency injection to introduce custom authentication or rate limiting.
 
-Ready to go deeper? Continue to [REST API](../api/rest-api) for endpoint specifics or [Production Deployment](../operations/deployment) to prepare for live environments.
+Ready to go deeper? Continue to [REST API](../api/rest-api) for endpoint specifics or explore the [Operations guides](../operations/scaling) to prepare for live environments.
