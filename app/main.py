@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -5,6 +7,9 @@ from loguru import logger
 
 from app.core.config import settings
 from app.api.endpoints import ingestion, retrieval, generation
+from app.core.vector_store import vector_store
+from app.core.embeddings import embedding_service
+from app.services.llm_service import llm_service
 
 # Display startup information
 print("🚀 Starting RAG Loom...")
@@ -57,27 +62,27 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    from app.core.vector_store import vector_store
+    """Expose service dependencies and current readiness state."""
+    timestamp = datetime.now(timezone.utc).isoformat()
     
-    try:
-        # Basic health check
-        health_status = {
-            "status": "healthy",
-            "vector_store": settings.VECTOR_STORE_TYPE,
-            "embedding_model": settings.EMBEDDING_MODEL,
-            "llm_provider": settings.LLM_PROVIDER,
-            "timestamp": "2024-01-15T10:30:00Z"
-        }
-        
-        # Add Ollama-specific info
-        if settings.LLM_PROVIDER == "ollama":
-            health_status["ollama_model"] = settings.OLLAMA_MODEL
-            health_status["ollama_url"] = settings.OLLAMA_BASE_URL
-        
-        return health_status
-    except Exception as e:
-        logger.error(f"Health check failed: {e}")
-        return {"status": "unhealthy", "error": str(e)}
+    vector_status = vector_store.health()
+    embedding_status = embedding_service.health()
+    llm_status = llm_service.health()
+    
+    overall_status = "healthy" if all(
+        subsystem.get("status") == "up"
+        for subsystem in (vector_status, embedding_status, llm_status)
+    ) else "degraded"
+    
+    return {
+        "status": overall_status,
+        "timestamp": timestamp,
+        "vector_store": vector_status,
+        "embedding": embedding_status,
+        "llm": llm_status,
+        "version": settings.VERSION,
+        "service": settings.PROJECT_NAME
+    }
 
 if __name__ == "__main__":
     import uvicorn

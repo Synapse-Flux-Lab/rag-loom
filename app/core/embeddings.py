@@ -14,6 +14,13 @@ class EmbeddingService:
         self.dimension = settings.EMBEDDING_DIM
         self._initialize_model()
     
+    def _status_template(self):
+        return {
+            "status": "up",
+            "model": self.model_name,
+            "provider": self.model_type
+        }
+    
     def _initialize_model(self):
         try:
             if self.model_name.startswith("text-embedding-"):
@@ -52,5 +59,36 @@ class EmbeddingService:
         except Exception as e:
             logger.error(f"Error generating embeddings: {e}")
             raise
+    
+    def health(self) -> dict:
+        """Validate connectivity for the embedding service."""
+        status = self._status_template()
+        try:
+            if self.model_type == "openai":
+                if not settings.OPENAI_API_KEY:
+                    raise ValueError("Missing OPENAI_API_KEY")
+                # Lightweight metadata call to confirm connectivity
+                if hasattr(self.client, "models"):
+                    self.client.models.list()  # type: ignore[attr-defined]
+                else:
+                    raise ValueError("OpenAI client does not expose a models endpoint")
+            elif self.model_type == "cohere":
+                if not settings.COHERE_API_KEY:
+                    raise ValueError("Missing COHERE_API_KEY")
+                if hasattr(self.client, "check_api_key"):
+                    self.client.check_api_key()
+                else:
+                    # Fallback: perform minimal embed to validate credentials
+                    self.client.embed(texts=["health-check"], model=self.model_name)
+            elif self.model_type == "local":
+                if not hasattr(self, "model"):
+                    raise ValueError("Local embedding model not initialized")
+            else:
+                status["status"] = "down"
+                status["error"] = f"Unsupported embedding provider '{self.model_type}'"
+        except Exception as exc:
+            status["status"] = "down"
+            status["error"] = str(exc)
+        return status
 
 embedding_service = EmbeddingService()

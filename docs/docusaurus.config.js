@@ -45,6 +45,19 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        searchResultLimits: 8,
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
       navbar: {
@@ -59,12 +72,6 @@ const config = {
             sidebarId: 'docsSidebar',
             position: 'left',
             label: 'Documentation',
-          },
-          {
-            href: 'https://synapsefluxlab.pages.dev/',
-            label: 'Synapse Flux Lab',
-            position: 'right',
-            className: 'navbar__link--cta',
           },
           {
             href: 'https://github.com/Synapse-Flux-Lab/rag-loom',

@@ -6,10 +6,12 @@ sidebar_position: 1
 
 This guide walks through the prerequisites and environment preparation needed before running RAG Loom locally or in CI.
 
+You can let the project handle everything for you by running `./utilscripts/quick_start.sh setup`. The script installs Python 3.12 , creates a virtual environment, upgrades `pip`, and installs `requirements.txt`. The rest of this page mirrors those steps so you can perform them manually.
+
 ## Supported Platforms
 
 - **Operating systems**: macOS 13+, Ubuntu 20.04+, or other modern Linux distributions.
-- **Python**: 3.10 or 3.12 (project is validated on 3.12).
+- **Python**: 3.12 is the supported baseline (`quick_start.sh` bootstraps this exact version).
 - **Container tooling** (optional): Docker (24+) and Docker Compose (v2) for production parity testing.
 - **Git**: Required for cloning and managing the repository.
 
@@ -25,24 +27,51 @@ This guide walks through the prerequisites and environment preparation needed be
 
 ## Repository Setup
 
+### 1. Install core prerequisites
+
+Confirm that the following executables are available:
+
+- `python3.12` (or install it)
+  - macOS (Homebrew): `brew install python@3.12`
+  - Ubuntu/Debian: `sudo apt-get update && sudo apt-get install python3.12 python3.12-venv`
+  - Fedora: `sudo dnf install python3.12 python3.12-venv`
+- `pip3` (bundled with the installers above; otherwise install `python3-pip` via your package manager)
+- `git` (optional for day-to-day work, but required to clone the repo)
+
+Verify the versions:
+
+```bash
+python3.12 --version
+pip3 --version
+git --version
+```
+
+### 2. Clone the repository
+
 ```bash
 git clone https://github.com/Synapse-Flux-Lab/rag-loom.git
 cd rag-loom
 ```
 
-Create an isolated Python environment:
+### 3. Create the project virtual environment
+
+Match the automation script by placing the environment in `venvpy312`:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+python3.12 -m venv venvpy312
+source venvpy312/bin/activate  # Windows PowerShell: venvpy312\Scripts\Activate.ps1
 ```
 
-Install the Python dependencies:
+Reusing an existing environment? Just reactivate it with `source venvpy312/bin/activate`.
+
+### 4. Install Python dependencies
 
 ```bash
-pip install --upgrade pip
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 ```
+
+If dependency installation fails, delete the virtual environment (`rm -rf venvpy312`) and recreate it to ensure a clean state.
 
 ## Environment Configuration
 
