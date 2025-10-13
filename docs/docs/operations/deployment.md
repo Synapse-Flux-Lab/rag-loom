@@ -96,4 +96,4 @@ For dependency changes, rebuild the image with `--no-cache`.
 - Alerts (if configured) are enabled and confirmed.
 - Smoke tests (`pytest test_service.py`) pass against the deployed instance.
 
-Proceed to [Monitoring & Observability](./monitoring) to configure dashboards and alerting, and [Troubleshooting](./troubleshooting) for operational runbooks.
+Proceed to [Troubleshooting](./troubleshooting) for operational runbooks and verify your Prometheus/Grafana stack is collecting metrics from the service.

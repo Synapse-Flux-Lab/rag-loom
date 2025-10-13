@@ -64,7 +64,7 @@ Adjust exposed ports in `docker-compose.yml` if conflicts persist.
 
 ## Slow Responses
 
-- Review dashboards for latency spikes (see [Monitoring](./monitoring)).
+- Review dashboards for latency spikes using the exported Prometheus metrics and any custom Grafana boards bundled with your deployment.
 - Increase worker processes (`WORKER_PROCESSES`) or scale horizontally.
 - Check vector store load; upgrade storage or increase cache size.
 - Analyse LLM provider throughput—consider queueing or request shaping.
