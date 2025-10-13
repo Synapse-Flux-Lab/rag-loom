@@ -10,7 +10,7 @@ const config = {
   tagline: 'Documentation hub for the RAG Loom project',
   favicon: 'img/logo.svg',
 
-  url: 'https://your-domain.com',
+  url: 'https://ragloom.pages.dev/',
   baseUrl: '/',
   organizationName: 'Synapse-Flux-Lab',
   projectName: 'rag-loom-docs',
@@ -49,6 +49,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
       navbar: {
         title: 'RAG Loom',
+        logo: {
+          alt: 'RAG Loom Logo',
+          src: 'img/logo.svg',
+        },
         items: [
           {
             type: 'docSidebar',
