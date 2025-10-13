@@ -85,6 +85,15 @@ Uploads a single document for processing and indexing.
 
 Accepts multiple files in a single multipart request. Each file is processed independently and returns an array of per-file ingestion results.
 
+**Request** (multipart form):
+
+- `files`: repeatable binary field for each document (`pdf` or `txt`)
+- `chunk_params` (optional JSON string): `{ "chunk_size": 1000, "chunk_overlap": 200 }`
+
+Each uploaded file is chunked, embedded, and stored in the configured vector store in the same way as the single-file endpoint.
+
+**Response** (`200 OK`):
+
 ```json
 [
   {
