@@ -28,7 +28,7 @@ const sidebars = {
       label: 'API',
       items: [
         'api/rest-api',
-        'api/client-recipes',
+        'api/script-examples',
       ],
     },
     {

@@ -225,4 +225,4 @@ curl -X POST "http://localhost:8000/api/v1/search" \
   -d '{"query": "What models are supported?", "top_k": 3}'
 ```
 
-For SDK or client library integration, see [Client Recipes](./client-recipes).
+For SDK integrations, explore the ready-made snippets in the [API Script Playbook](./script-examples).
