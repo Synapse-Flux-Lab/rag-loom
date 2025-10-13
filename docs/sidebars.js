@@ -13,6 +13,7 @@ const sidebars = {
         'getting-started/requirements',
         'getting-started/quickstart',
         'getting-started/structure',
+        'getting-started/infrastructure',
       ],
     },
     {
