@@ -11,9 +11,9 @@ RAG Loom fuses hard-won production patterns into a single deployment-ready stack
 <div class="contact-cta-card contact-cta-card--compact">
   <div class="contact-cta-icon">🚀</div>
   <div class="contact-cta-body">
-    <p class="contact-cta-title">Ready for a deeper dive?</p>
+    <p class="contact-cta-title">Ready to chart your RAG roadmap?</p>
     <p class="contact-cta-text">
-      Email <a href="mailto:hello@synapsefluxlab.com" class="contact-cta-link">hello@synapsefluxlab.com</a> or reserve a slot via the
+      Join our design partners shaping RAG Loom’s next features or reserve your place on the early access waitlist via the
       <a href="https://synapsefluxlab.pages.dev/#contactform" target="_blank" rel="noopener noreferrer" class="contact-cta-link contact-cta-link--accent">registration form</a>.
     </p>
   </div>
@@ -39,14 +39,10 @@ Share the following details to secure a slot in the next onboarding wave:
 <div class="contact-cta-card">
   <div class="contact-cta-icon">📩</div>
   <div class="contact-cta-body">
-    <p class="contact-cta-title">Let’s explore how RAG Loom fits your roadmap.</p>
-    <p class="contact-cta-text">
-      Drop us a line at <a href="mailto:hello@synapsefluxlab.com" class="contact-cta-link">hello@synapsefluxlab.com</a>.
-    </p>
+    <p class="contact-cta-title">See RAG Loom in action for your use case.</p>
     <p class="contact-cta-text contact-cta-text--accent">
-      Prefer a quick form? Head to the
-      <a href="https://synapsefluxlab.pages.dev/#contactform" target="_blank" rel="noopener noreferrer" class="contact-cta-link contact-cta-link--accent">registration form</a>
-      to secure your onboarding slot.
+      Tap into tailored briefings, roadmap previews, or join the priority waitlist via the
+      <a href="https://synapsefluxlab.pages.dev/#contactform" target="_blank" rel="noopener noreferrer" class="contact-cta-link contact-cta-link--accent">registration form</a>.
     </p>
   </div>
 </div>

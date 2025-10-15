@@ -45,7 +45,14 @@ RAG Loom provides a production-quality retrieval-augmented generation (RAG) micr
       <li><strong>Accelerate time to value</strong> — launch pilot use cases in days, not quarters, with governance baked in.</li>
       <li><strong>Scale with confidence</strong> — observability dashboards surface adoption, accuracy, and compliance trends for every release.</li>
     </ul>
-    <a class="executive-card__cta executive-card__cta--dark" href="./contact-us">Talk with the RAG Loom team</a>
+    <a
+      class="executive-card__cta executive-card__cta--dark"
+      href="https://synapsefluxlab.pages.dev/#contactform"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Talk with the RAG Loom team
+    </a>
   </div>
 </div>
 
