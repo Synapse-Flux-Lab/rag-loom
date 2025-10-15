@@ -8,6 +8,8 @@ Unlike most RAG demos, this repo shows how to integrate **document ingestion, ve
 
 👉 It’s a **starter kit for AI platform teams**: opinionated, modular, and focused on **enterprise readiness**.
 
+( This repository is the **community edition** of RAG Loom. Looking for the closed-source pro version? or want to become our design partners shaping RAG Loom’s next features: Join the waiting list via [our contact form](https://synapsefluxlab.pages.dev/#contactform). )
+
 ---
 
 ## 🔹 Why This Matters
