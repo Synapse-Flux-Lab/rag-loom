@@ -19,7 +19,7 @@ Returns a lightweight banner confirming the service is running.
 ```json
 {
   "message": "RAG Microservice API",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
 ```
 
@@ -32,7 +32,7 @@ Returns service status and dependency diagnostics.
   "status": "healthy",
   "timestamp": "2024-03-01T10:15:00.123456+00:00",
   "service": "RAG Loom API",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "vector_store": {
     "status": "up",
     "type": "chroma"

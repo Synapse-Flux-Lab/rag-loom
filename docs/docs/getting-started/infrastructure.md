@@ -23,7 +23,7 @@ Four primary groups of settings control how the platform behaves. Start with `.e
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `PROJECT_NAME` | `RAG Loom API` | Branding for generated docs and metadata. |
-| `VERSION` | `0.1.0` | API/version banner returned by `/` and `/health`. |
+| `VERSION` | `0.2.0` | API/version banner returned by `/` and `/health`. |
 | `API_V1_STR` | `/api/v1` | Prefix for all routed endpoints. |
 | `CHUNK_SIZE` | `1000` | Default characters per chunk during ingestion. |
 | `CHUNK_OVERLAP` | `200` | Overlap between consecutive chunks. |

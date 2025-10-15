@@ -27,7 +27,7 @@ Sample response:
 ```json
 {
   "message": "RAG Microservice API",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
 ```
 
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 Sample output:
 
 ```json
-{"message": "RAG Microservice API", "version": "0.1.0"}
+{"message": "RAG Microservice API", "version": "0.2.0"}
 ```
 
 ### Health Check — `GET /health`

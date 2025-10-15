@@ -15,16 +15,6 @@ You can let the project handle everything for you by running `./utilscripts/quic
 - **Container tooling** (optional): Docker (24+) and Docker Compose (v2) for production parity testing.
 - **Git**: Required for cloning and managing the repository.
 
-## Hardware Recommendations
-
-| Scenario | CPU | Memory | Storage |
-| --- | --- | --- | --- |
-| Local evaluation | 4 cores | 16 GB | 20 GB free |
-| Development with Ollama | 8 cores | 32 GB | 50 GB free |
-| Production deployment | 8+ cores | 32+ GB | SSD-backed 100 GB free |
-
-> Running local language models with Ollama benefits from Apple Silicon or a modern GPU-enabled Linux host. For lighter development, you can target hosted providers such as OpenAI or Cohere.
-
 ## Repository Setup
 
 ### 1. Install core prerequisites
