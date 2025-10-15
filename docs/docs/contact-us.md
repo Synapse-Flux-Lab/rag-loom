@@ -13,7 +13,7 @@ RAG Loom fuses hard-won production patterns into a single deployment-ready stack
   <div class="contact-cta-body">
     <p class="contact-cta-title">Ready to chart your RAG roadmap?</p>
     <p class="contact-cta-text">
-      Join our design partners shaping RAG Loom’s next features or reserve your place on the early access waitlist via the
+      Join our design partners shaping RAG Loom’s next features or reserve your place on the early access waitlist for 'RAG Loom Pro' version via the
       <a href="https://synapsefluxlab.pages.dev/#contactform" target="_blank" rel="noopener noreferrer" class="contact-cta-link contact-cta-link--accent">registration form</a>.
     </p>
   </div>
@@ -41,7 +41,7 @@ Share the following details to secure a slot in the next onboarding wave:
   <div class="contact-cta-body">
     <p class="contact-cta-title">See RAG Loom in action for your use case.</p>
     <p class="contact-cta-text contact-cta-text--accent">
-      Tap into tailored briefings, roadmap previews, or join the priority waitlist via the
+      Tap into tailored briefings, roadmap previews, or join the priority waitlist for RAG Loom Pro version via the
       <a href="https://synapsefluxlab.pages.dev/#contactform" target="_blank" rel="noopener noreferrer" class="contact-cta-link contact-cta-link--accent">registration form</a>.
     </p>
   </div>
