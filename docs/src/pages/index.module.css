@@ -1,0 +1,82 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.secondaryButton {
+  color: var(--color-accent-orange) !important;
+  border: 1px solid rgba(249, 115, 22, 0.35) !important;
+  background: rgba(248, 113, 22, 0.08) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background: rgba(248, 113, 22, 0.15) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(249, 115, 22, 0.25);
+}
+
+.mainContent {
+  padding: 2rem 0 4rem;
+}
+
+.parentCallout {
+  margin-top: 3rem;
+}
+
+.parentCard {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.92));
+  color: var(--color-cloud);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  text-align: left;
+}
+
+:global([data-theme='dark']) .parentCard {
+  background: linear-gradient(145deg, rgba(9, 10, 20, 0.95), rgba(17, 24, 39, 0.95));
+  box-shadow: 0 20px 40px rgba(2, 6, 17, 0.55);
+}
+
+.parentEyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(248, 250, 252, 0.7);
+  margin-bottom: 0.5rem;
+}
+
+.parentCard h3 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.parentCard p {
+  max-width: 48rem;
+  color: rgba(226, 232, 240, 0.9);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.parentLink {
+  color: var(--color-accent-orange);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.parentLink:hover {
+  color: var(--color-accent-orange-soft);
+  border-bottom-color: rgba(249, 115, 22, 0.4);
+}

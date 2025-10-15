@@ -6,8 +6,8 @@ from typing import Optional
 load_dotenv()
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "RAG Microservice"
-    VERSION: str = "1.0.0"
+    PROJECT_NAME: str = "RAG Loom API"
+    VERSION: str = "0.2.0"
     API_V1_STR: str = "/api/v1"
     
     # Chunking settings
@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     
     # Ollama settings
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "mixtral:latest"
+    OLLAMA_MODEL: str = "gemma2:2b"
     OLLAMA_NUM_PARALLEL: int = 2
     
     # Retrieval settings

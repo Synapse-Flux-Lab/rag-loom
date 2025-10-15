@@ -8,12 +8,16 @@ class TestIngestionAPI:
         response = client.get("/health")
         assert response.status_code == 200
         data = response.json()
-        assert "embedding_model" in data
-        assert "llm_provider" in data
-        assert "ollama_model" in data
-        assert "ollama_url" in data
+        assert data["status"] in {"healthy", "degraded"}
         assert "timestamp" in data
         assert "vector_store" in data
+        assert "embedding" in data
+        assert "llm" in data
+        assert "service" in data
+        assert "version" in data
+        assert data["embedding"]["status"] == "up"
+        assert data["llm"]["status"] in {"up", "degraded", "down"}
+        assert data["vector_store"]["status"] in {"up", "degraded", "down"}
     
     def test_ingest_pdf_file(self, client: TestClient, sample_pdf_content):
         """Test PDF file ingest endpoint"""
@@ -50,3 +54,21 @@ class TestIngestionAPI:
         files = {"file": ("empty.txt", b"", "text/plain")}
         response = client.post("/api/v1/ingest", files=files)
         assert response.status_code == 200  # Should handle empty files gracefully
+
+    def test_ingest_batch_files(self, client: TestClient, sample_txt_content):
+        """Test batch ingest endpoint processes multiple files"""
+        files = [
+            ("files", ("batch1.txt", sample_txt_content, "text/plain")),
+            ("files", ("batch2.txt", b"Additional batch file content.", "text/plain")),
+        ]
+
+        response = client.post("/api/v1/ingest/batch", files=files)
+        assert response.status_code == 200
+
+        data = response.json()
+        assert isinstance(data, list)
+        assert len(data) == 2
+        for item in data:
+            assert item["chunks_created"] >= 0
+            assert item["file_name"] in {"batch1.txt", "batch2.txt"}
+            assert item["message"]

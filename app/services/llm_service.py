@@ -14,6 +14,13 @@ class LLMService:
         self.provider = settings.LLM_PROVIDER
         self._initialize_client()
     
+    def _status_template(self):
+        return {
+            "status": "up",
+            "provider": self.provider,
+            "model": getattr(self, "model_name", None)
+        }
+    
     def _initialize_client(self):
         try:
             if self.provider == "openai":
@@ -93,6 +100,44 @@ class LLMService:
         except Exception as e:
             logger.error(f"Error generating response: {e}")
             raise
+    
+    def health(self) -> dict:
+        """Validate connectivity for the configured LLM provider."""
+        status = self._status_template()
+        try:
+            if self.provider == "openai":
+                if not settings.OPENAI_API_KEY:
+                    raise ValueError("Missing OPENAI_API_KEY")
+                if hasattr(self.client, "models"):
+                    self.client.models.list()  # type: ignore[attr-defined]
+                else:
+                    raise ValueError("OpenAI client does not expose a models endpoint")
+            elif self.provider == "cohere":
+                if not settings.COHERE_API_KEY:
+                    raise ValueError("Missing COHERE_API_KEY")
+                if hasattr(self.client, "check_api_key"):
+                    self.client.check_api_key()
+                else:
+                    self.client.generate(
+                        model=self.model_name,
+                        prompt="health-check",
+                        max_tokens=1
+                    )
+            elif self.provider == "huggingface":
+                if not hasattr(self, "client"):
+                    raise ValueError("HuggingFace pipeline not initialized")
+            elif self.provider == "ollama":
+                import requests
+                response = requests.get(f"{settings.OLLAMA_BASE_URL}/api/tags", timeout=5)
+                if response.status_code != 200:
+                    raise ValueError(f"Ollama responded with status {response.status_code}")
+            else:
+                status["status"] = "down"
+                status["error"] = f"Unsupported LLM provider '{self.provider}'"
+        except Exception as exc:
+            status["status"] = "down"
+            status["error"] = str(exc)
+        return status
     
     def _create_openai_prompt(self, query: str, context: str) -> str:
         return f"""Context:

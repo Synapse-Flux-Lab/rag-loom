@@ -234,7 +234,6 @@ $RECYCLE.BIN/
 .nfs*
 
 # Docker
-.dockerignore
 Dockerfile
 
 .docker/
@@ -327,6 +326,8 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+.venv/
+venv-tests/
 
 # IDE and editor files
 .vscode/
@@ -386,3 +387,5 @@ dmypy.json
 cython_debug/
 
 tmp/
+
+service.pid

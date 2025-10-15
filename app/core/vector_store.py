@@ -20,6 +20,12 @@ class VectorStoreService:
         self.embedding_dim = settings.EMBEDDING_DIM
         self._initialize_store()
     
+    def _status_template(self):
+        return {
+            "type": self.store_type,
+            "status": "up"
+        }
+    
     def _initialize_store(self):
         try:
             if self.store_type == "chroma":
@@ -71,6 +77,25 @@ class VectorStoreService:
         except Exception as e:
             logger.error(f"Failed to initialize vector store: {e}")
             raise
+    
+    def health(self) -> Dict[str, Any]:
+        """Return connectivity status for the configured vector store."""
+        status = self._status_template()
+        try:
+            if self.store_type == "chroma":
+                # Count triggers a lightweight call to the collection
+                self.collection.count()
+            elif self.store_type == "qdrant":
+                self.client.get_collection("document_chunks")
+            elif self.store_type == "redis":
+                self.client.ping()
+            else:
+                status["status"] = "down"
+                status["error"] = f"Unsupported vector store type '{self.store_type}'"
+        except Exception as exc:
+            status["status"] = "down"
+            status["error"] = str(exc)
+        return status
     
     def store_chunks(self, chunks: List[DocumentChunk]):
         """Store document chunks in the vector database"""
