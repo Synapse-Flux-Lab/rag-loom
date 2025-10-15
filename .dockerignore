@@ -1,0 +1,30 @@
+#
+# Build context exclusions to keep Docker images slim
+#
+.dockerignore
+.env
+.venv
+venvpy312/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+service.log
+service.pid
+
+# Source control and metadata
+.git
+.gitignore
+.github
+
+# Documentation, tests, and tooling not needed at runtime
+docs/
+tests/
+utilscripts/
+chroma_db/
+node_modules/
+
+# Local artifacts and compose definitions
+docker-compose*.yml
+env.production

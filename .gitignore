@@ -234,7 +234,6 @@ $RECYCLE.BIN/
 .nfs*
 
 # Docker
-.dockerignore
 Dockerfile
 
 .docker/
