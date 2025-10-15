@@ -5,6 +5,7 @@ const sidebars = {
   docsSidebar: [
     'Introduction',
     'overview',
+    'roadmap',
     {
       type: 'category',
       label: 'Getting Started',
@@ -47,6 +48,7 @@ const sidebars = {
         'integrations/ollama',
       ],
     },
+    'contact-us',
   ],
 };
 

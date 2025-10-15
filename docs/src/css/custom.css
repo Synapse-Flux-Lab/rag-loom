@@ -247,10 +247,326 @@
   color: var(--ifm-color-primary);
   border-bottom-color: rgba(249, 115, 22, 0.4);
 }
+
+.executive-card {
+  position: relative;
+  margin: 3rem 0 2.5rem;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(140deg, rgba(15, 23, 42, 0.96), rgba(30, 64, 175, 0.85));
+  overflow: hidden;
+  color: #f8fafc;
+  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.executive-card::before {
+  content: '';
+  position: absolute;
+  width: 300;
+  height: 280px;
+  top: -120px;
+  right: -90px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.45), transparent 60%);
+  z-index: 0;
+}
+
+.executive-card::after {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  bottom: -110px;
+  left: -60px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.4), transparent 65%);
+  z-index: 0;
+}
+
+.executive-card__intro {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba(248, 250, 252, 0.95);
+}
+
+.executive-card__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.executive-card__section {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.6rem;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.executive-card__section h3 {
+  margin-top: 0;
+  margin-bottom: 0.85rem;
+  font-size: 1.2rem;
+  color: #fbbf24;
+}
+
+.executive-card__list {
+  padding-left: 1.2rem;
+  margin: 0 0 1rem 0;
+}
+
+.executive-card__list li {
+  margin-bottom: 0.6rem;
+}
+
+.executive-card__note {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(248, 250, 252, 0.85);
+}
+
+.executive-card__models {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.executive-card__emoji {
+  font-size: 1.2rem;
+  margin-right: 0.65rem;
+}
+
+.executive-card__model-text {
+  vertical-align: middle;
+}
+
+.executive-card__benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.executive-card__section--full {
+  grid-column: 1 / -1;
+  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(248, 250, 252, 0.1);
+  padding: 1.8rem;
+}
+
+.executive-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f97316, #facc15);
+  color: #0f172a;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 15px 30px rgba(249, 115, 22, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.executive-card__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.45);
+}
+
+.executive-card__cta--dark {
+  background: linear-gradient(135deg, #fde68a, #fbbf24);
+  color: #000 !important;
+}
+
+.executive-card__cta--dark:hover {
+  color: #000 !important;
+}
+
+.executive-card a {
+  color: #fbbf24;
+  text-decoration: none;
+}
+
+.executive-card a:hover {
+  color: #fde68a;
+}
+
+.executive-card__grid,
+.executive-card__section {
+  transition: transform 0.2s ease;
+}
+
+.executive-card__section:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 900px) {
+  .executive-card {
+    padding: 2rem;
+  }
+
+  .executive-card__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .executive-card__section--full {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .executive-card {
+    padding: 1.6rem;
+    border-radius: 1rem;
+  }
+
+  .executive-card__intro {
+    font-size: 0.98rem;
+  }
+
+  .executive-card__section {
+    padding: 1.2rem;
+  }
+
+  .executive-card__section h3 {
+    font-size: 1.1rem;
+  }
+
+  .executive-card__cta {
+    white-space: normal;
+  }
+}
+
+.contact-cta-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+  padding: 1.75rem 2rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(130deg, rgba(249, 115, 22, 0.92), rgba(15, 23, 42, 0.92));
+  box-shadow: 0 24px 45px rgba(15, 23, 42, 0.25);
+  color: #fff;
+  overflow: hidden;
+}
+
+.contact-cta-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.16), transparent 45%),
+              radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.18), transparent 40%);
+  pointer-events: none;
+}
+
+.contact-cta-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  z-index: 1;
+}
+
+.contact-cta-body {
+  z-index: 1;
+  max-width: 620px;
+}
+
+.contact-cta-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-cta-text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contact-cta-text + .contact-cta-text {
+  margin-top: 0.65rem;
+}
+
+.contact-cta-text--accent {
+  font-weight: 600;
+}
+
+.contact-cta-link {
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.contact-cta-link:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.75);
+  opacity: 0.9;
+}
+
+.contact-cta-link--accent {
+  color: #fbbf24;
+  border-bottom-color: rgba(251, 191, 36, 0.5);
+}
+
+.contact-cta-link--accent:hover {
+  border-bottom-color: rgba(251, 191, 36, 0.85);
+  opacity: 1;
+}
+
+.contact-cta-card--compact {
+  padding: 1.25rem 1.5rem;
+  margin: 1.8rem 0;
+  gap: 1rem;
+}
+
+.contact-cta-card--compact .contact-cta-title {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.contact-cta-card--compact .contact-cta-icon {
+  font-size: 2.2rem;
+}
+
+@media (max-width: 768px) {
+  .contact-cta-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .contact-cta-icon {
+    font-size: 2.2rem;
+  }
+
+  .contact-cta-title {
+    font-size: 1.2rem;
+  }
+}
+
 [data-theme='dark'] .mainContent tbody tr:nth-child(odd) {
   background: rgba(15, 23, 42, 0.6);
 }
 
 [data-theme='dark'] .mainContent tbody tr:nth-child(even) {
   background: rgba(15, 23, 42, 0.45);
+}
+
+.theme-edit-this-page,
+.theme-doc-footer-edit-meta-row {
+  display: none !important;
 }
