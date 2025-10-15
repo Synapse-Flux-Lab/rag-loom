@@ -247,6 +247,115 @@
   color: var(--ifm-color-primary);
   border-bottom-color: rgba(249, 115, 22, 0.4);
 }
+
+.contact-cta-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+  padding: 1.75rem 2rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(130deg, rgba(249, 115, 22, 0.92), rgba(15, 23, 42, 0.92));
+  box-shadow: 0 24px 45px rgba(15, 23, 42, 0.25);
+  color: #fff;
+  overflow: hidden;
+}
+
+.contact-cta-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.16), transparent 45%),
+              radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.18), transparent 40%);
+  pointer-events: none;
+}
+
+.contact-cta-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  z-index: 1;
+}
+
+.contact-cta-body {
+  z-index: 1;
+  max-width: 620px;
+}
+
+.contact-cta-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-cta-text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contact-cta-text + .contact-cta-text {
+  margin-top: 0.65rem;
+}
+
+.contact-cta-text--accent {
+  font-weight: 600;
+}
+
+.contact-cta-link {
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.contact-cta-link:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.75);
+  opacity: 0.9;
+}
+
+.contact-cta-link--accent {
+  color: #fbbf24;
+  border-bottom-color: rgba(251, 191, 36, 0.5);
+}
+
+.contact-cta-link--accent:hover {
+  border-bottom-color: rgba(251, 191, 36, 0.85);
+  opacity: 1;
+}
+
+.contact-cta-card--compact {
+  padding: 1.25rem 1.5rem;
+  margin: 1.8rem 0;
+  gap: 1rem;
+}
+
+.contact-cta-card--compact .contact-cta-title {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.contact-cta-card--compact .contact-cta-icon {
+  font-size: 2.2rem;
+}
+
+@media (max-width: 768px) {
+  .contact-cta-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .contact-cta-icon {
+    font-size: 2.2rem;
+  }
+
+  .contact-cta-title {
+    font-size: 1.2rem;
+  }
+}
+
 [data-theme='dark'] .mainContent tbody tr:nth-child(odd) {
   background: rgba(15, 23, 42, 0.6);
 }
