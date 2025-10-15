@@ -326,6 +326,8 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+.venv/
+venv-tests/
 
 # IDE and editor files
 .vscode/
