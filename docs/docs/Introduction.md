@@ -12,7 +12,7 @@ RAG Loom provides a production-quality retrieval-augmented generation (RAG) micr
   <div class="executive-card__intro">
   ## Executive Snapshot
     <p>
-      RAG Loom fuses your proprietary data with frontier generative AI, turning static knowledge bases into live, AI-assisted experiences. Within days, business teams move from “we should explore AI” to measurable impact in customer support, research synthesis, and internal enablement.
+      RAG Loom allows to use your proprietary data with frontier generative AI, turning static knowledge bases into live, AI-assisted experiences. Within days, business teams move from “we should explore AI” to measurable impact in customer support, research synthesis, and internal enablement.
     </p>
   </div>
   <div class="executive-card__grid">
@@ -29,7 +29,7 @@ RAG Loom provides a production-quality retrieval-augmented generation (RAG) micr
     <div class="executive-card__section">
       <h3>Built for the Models You Already Trust</h3>
       <ul class="executive-card__models">
-        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>OpenAI GPT</strong> .</span></li>
+        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>OpenAI GPT</strong> </span></li>
         <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Anthropic Claude</strong> </span></li>
         <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Google Gemini </strong> </span></li>
         <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Mistral Large</strong> </span></li>
@@ -51,7 +51,7 @@ RAG Loom provides a production-quality retrieval-augmented generation (RAG) micr
       target="_blank"
       rel="noopener noreferrer"
     >
-      Talk with the RAG Loom team
+      Talk with RAG Loom team
     </a>
   </div>
 </div>

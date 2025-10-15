@@ -263,7 +263,7 @@
 .executive-card::before {
   content: '';
   position: absolute;
-  width: 280px;
+  width: 300;
   height: 280px;
   top: -120px;
   right: -90px;
@@ -366,8 +366,9 @@
 .executive-card__cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.3rem;
+  padding: 0.45rem 1.6rem;
   border-radius: 999px;
   background: linear-gradient(135deg, #f97316, #facc15);
   color: #0f172a;
@@ -375,16 +376,14 @@
   text-decoration: none;
   box-shadow: 0 15px 30px rgba(249, 115, 22, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .executive-card__cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 20px 40px rgba(249, 115, 22, 0.45);
-}
-
-.executive-card__cta::after {
-  content: '→';
-  font-weight: 700;
 }
 
 .executive-card__cta--dark {
@@ -444,6 +443,10 @@
 
   .executive-card__section h3 {
     font-size: 1.1rem;
+  }
+
+  .executive-card__cta {
+    white-space: normal;
   }
 }
 
