@@ -6,6 +6,36 @@ sidebar_position: 1
 
 RAG Loom provides a production-quality retrieval-augmented generation (RAG) microservice built on FastAPI. This site covers everything required to evaluate the platform, run it locally, integrate it with external systems, and operate it in production.
 
+## Executive Snapshot
+
+RAG Loom uses power of your proprietary data with the reasoning power of frontier generative AI models, turning static knowledge bases into live, AI-assisted experiences. Within days, business teams move from “we should explore AI” to measurable impact in customer support, research synthesis, and internal enablement.
+
+### What Is Retrieval-Augmented Generation?
+
+Retrieval-augmented generation (RAG) blends two ingredients:
+
+1. **Retrieval** — find trustworthy, business-owned content at the moment of need.  
+2. **Generation** — craft concise, conversational answers using large language models that respect your tone and policy guardrails.
+
+The result is an AI copilot that is *grounded* in your company facts, auditable across every answer, and tuned for regulated environments.
+
+### Built for the Models You Already Trust
+
+- 🧠 **OpenAI GPT-4o** — empathetic customer responses with enterprise-grade safety  
+- ⚡ **Anthropic Claude 3 Opus** — long-context analysis for legal, research, and policy teams  
+- 🌐 **Google Gemini 1.5 Pro** — multimodal synthesis across docs, images, and knowledge graphs  
+- 🛠️ **Mistral Large** — European-hosted option for data residency and cost-sensitive deployments
+
+RAG Loom orchestrates these providers behind a consistent API, so business stakeholders can switch between best-of-breed models without disrupting downstream workflows.
+
+### Why It Matters for Business Leaders
+
+- **De-risk AI rollouts** — start with explainable, citation-backed answers instead of black-box chatbots.  
+- **Accelerate time to value** — launch pilot use cases in days, not quarters, with governance baked in.  
+- **Scale with confidence** — observability dashboards surface trends in adoption, accuracy, and compliance for every release.
+
+Ready to explore tailored roll-out plans? Our partnerships team is one click away on the [Contact RAG Loom Team](./contact-us) page.
+
 ## Who This Documentation Serves
 
 - **Builders** who want to stand up RAG Loom locally and explore the API surface.
