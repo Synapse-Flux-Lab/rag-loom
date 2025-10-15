@@ -254,3 +254,8 @@
 [data-theme='dark'] .mainContent tbody tr:nth-child(even) {
   background: rgba(15, 23, 42, 0.45);
 }
+
+.theme-edit-this-page,
+.theme-doc-footer-edit-meta-row {
+  display: none !important;
+}

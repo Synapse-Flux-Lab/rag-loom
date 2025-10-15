@@ -35,7 +35,6 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */ ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/Synapse-Flux-Lab/rag-loom/tree/main/docs',
         },
         blog: false,
         theme: {
