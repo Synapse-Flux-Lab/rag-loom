@@ -1,4 +1,12 @@
+import os
+import sys
+
 import pytest
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from app.utils.file_processing import FileProcessor
 
 class TestFileProcessor:
@@ -34,4 +42,3 @@ class TestFileProcessor:
         """Test file type detection for unsupported files"""
         with pytest.raises(ValueError, match="Unsupported file type"):
             FileProcessor.get_file_type("document.docx")
-

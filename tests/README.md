@@ -15,6 +15,8 @@ tests/
 
 ## Quick Start
 
+Prefer an automated setup? Run `./utilscripts/test_env_setup.sh` from the repo root (details in `tests/test-env-setup.md`). The steps below describe the manual equivalent.
+
 ### 1. Install Test Dependencies
 ```bash
 source renv/bin/activate
@@ -117,4 +119,3 @@ pytest tests/unit/test_file_processing.py::TestFileProcessor::test_extract_text_
 # Run with verbose output
 pytest -vvv
 ```
-
