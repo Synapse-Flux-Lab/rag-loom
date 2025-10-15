@@ -6,35 +6,49 @@ sidebar_position: 1
 
 RAG Loom provides a production-quality retrieval-augmented generation (RAG) microservice built on FastAPI. This site covers everything required to evaluate the platform, run it locally, integrate it with external systems, and operate it in production.
 
-## Executive Snapshot
 
-RAG Loom uses power of your proprietary data with the reasoning power of frontier generative AI models, turning static knowledge bases into live, AI-assisted experiences. Within days, business teams move from “we should explore AI” to measurable impact in customer support, research synthesis, and internal enablement.
 
-### What Is Retrieval-Augmented Generation?
+<div class="executive-card">
+  <div class="executive-card__intro">
+  ## Executive Snapshot
+    <p>
+      RAG Loom fuses your proprietary data with frontier generative AI, turning static knowledge bases into live, AI-assisted experiences. Within days, business teams move from “we should explore AI” to measurable impact in customer support, research synthesis, and internal enablement.
+    </p>
+  </div>
+  <div class="executive-card__grid">
+    <div class="executive-card__section">
+      <h3>What Is Retrieval-Augmented Generation?</h3>
+      <ol class="executive-card__list">
+        <li><strong>Retrieval</strong> — surface the right internal answer in milliseconds, straight from your knowledge base.</li>
+        <li><strong>Generation</strong> — blend that source material into clear, on-brand narratives for customers and teams.</li>
+      </ol>
+      <p class="executive-card__note">
+        The result is an AI copilot that stays grounded in policy-approved facts and gives stakeholders instant confidence.
+      </p>
+    </div>
+    <div class="executive-card__section">
+      <h3>Built for the Models You Already Trust</h3>
+      <ul class="executive-card__models">
+        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>OpenAI GPT</strong> .</span></li>
+        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Anthropic Claude</strong> </span></li>
+        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Google Gemini </strong> </span></li>
+        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Mistral Large</strong> </span></li>
+        <li><span class="executive-card__emoji"></span><span class="executive-card__model-text"><strong>Ollama</strong> (locally hosted models in secure private clouds for sensitive workloads.)</span></li>
+      </ul>
 
-Retrieval-augmented generation (RAG) blends two ingredients:
+    </div>
+  </div>
+  <div class="executive-card__section executive-card__section--full">
+    <h3>Why It Matters for Business Leaders</h3>
+    <ul class="executive-card__benefits">
+      <li><strong>De-risk AI rollouts</strong> — start with explainable, citation-backed answers instead of black-box chatbots.</li>
+      <li><strong>Accelerate time to value</strong> — launch pilot use cases in days, not quarters, with governance baked in.</li>
+      <li><strong>Scale with confidence</strong> — observability dashboards surface adoption, accuracy, and compliance trends for every release.</li>
+    </ul>
+    <a class="executive-card__cta executive-card__cta--dark" href="./contact-us">Talk with the RAG Loom team</a>
+  </div>
+</div>
 
-1. **Retrieval** — find trustworthy, business-owned content at the moment of need.  
-2. **Generation** — craft concise, conversational answers using large language models that respect your tone and policy guardrails.
-
-The result is an AI copilot that is *grounded* in your company facts, auditable across every answer, and tuned for regulated environments.
-
-### Built for the Models You Already Trust
-
-- 🧠 **OpenAI GPT-4o** — empathetic customer responses with enterprise-grade safety  
-- ⚡ **Anthropic Claude 3 Opus** — long-context analysis for legal, research, and policy teams  
-- 🌐 **Google Gemini 1.5 Pro** — multimodal synthesis across docs, images, and knowledge graphs  
-- 🛠️ **Mistral Large** — European-hosted option for data residency and cost-sensitive deployments
-
-RAG Loom orchestrates these providers behind a consistent API, so business stakeholders can switch between best-of-breed models without disrupting downstream workflows.
-
-### Why It Matters for Business Leaders
-
-- **De-risk AI rollouts** — start with explainable, citation-backed answers instead of black-box chatbots.  
-- **Accelerate time to value** — launch pilot use cases in days, not quarters, with governance baked in.  
-- **Scale with confidence** — observability dashboards surface trends in adoption, accuracy, and compliance for every release.
-
-Ready to explore tailored roll-out plans? Our partnerships team is one click away on the [Contact RAG Loom Team](./contact-us) page.
 
 ## Who This Documentation Serves
 
