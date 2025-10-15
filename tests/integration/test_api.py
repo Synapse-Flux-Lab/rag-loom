@@ -8,12 +8,16 @@ class TestIngestionAPI:
         response = client.get("/health")
         assert response.status_code == 200
         data = response.json()
-        assert "embedding_model" in data
-        assert "llm_provider" in data
-        assert "ollama_model" in data
-        assert "ollama_url" in data
+        assert data["status"] in {"healthy", "degraded"}
         assert "timestamp" in data
         assert "vector_store" in data
+        assert "embedding" in data
+        assert "llm" in data
+        assert "service" in data
+        assert "version" in data
+        assert data["embedding"]["status"] == "up"
+        assert data["llm"]["status"] in {"up", "degraded", "down"}
+        assert data["vector_store"]["status"] in {"up", "degraded", "down"}
     
     def test_ingest_pdf_file(self, client: TestClient, sample_pdf_content):
         """Test PDF file ingest endpoint"""
